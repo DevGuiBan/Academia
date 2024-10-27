@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('nome', 255);
             $table->string('email', 255)->unique();
             $table->string('endereco')->nullable(false);
+            $table->string('password');
             $table->unsignedBigInteger('plano_id');
+            $table->timestamps();
 
             $table->foreign('plano_id')
                 ->references('id')

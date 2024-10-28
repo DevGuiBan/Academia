@@ -3,18 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Aluno extends Model
 {
     protected $fillable = [
-        'name',
+        'nome',
         'aluno_id',
-        'address',
+        'endereco',
         'password',
         'email',
-        'address',
-        'plan'
+        'plano'
     ];
 
-    
+    public function plano()
+    {
+        return $this->belongsTo(Plano::class);
+    }
+
+    public function setPasswordAluno($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
 }

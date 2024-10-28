@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Personal extends Model
 {
     protected $fillable = [
-        'name',
+        'nome',
         'personal_id',
-        'address',
+        'endereco',
         'password',
         'email',
-        'stage',
-        'contract'
+        'estagio',
+        'contrato'
     ];
 
-    public function clients()
+    public function aluno()
     {
-        return $this->hasMany(Client::class);
+        return $this->hasMany(Aluno::class);
     }
 }

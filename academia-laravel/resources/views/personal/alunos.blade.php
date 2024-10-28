@@ -21,7 +21,7 @@
             </g>
         </svg>
     </a>
-    <h1>Alunos</h1>
+    <h1 class="text-xl font-bold">Alunos</h1>
     <br>
     <p>Alunos atendidos</p>
 

@@ -37,6 +37,14 @@ Route::get('/exercicio',function(){
     return view('personal.exercicio');
 });
 
+Route::get('/salvar-exercicio',function(){
+    return view('personal.salvarExercicio');
+});
+
+Route::get('/salvar-treino',function(){
+    return view('personal.salvarTreino');
+});
+
 Route::get('/treino',function(){
     return view('personal.treino');
 });

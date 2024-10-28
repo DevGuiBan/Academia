@@ -15,6 +15,11 @@
         max-width: max-content;
         padding: 1rem;
         margin: 1rem;
+        transition: box-shadow 0.5s ease-in-out;
+    }
+
+    .card:hover {
+        box-shadow: 0 2px 10px #86B201;
     }
 
     .status {
@@ -25,9 +30,6 @@
         font-size: small;
     }
 
-    .tamTitle {
-        font-size: x-large;
-    }
 </style>
 @section('content')
 <div class="flex flex-col space w-full">
@@ -41,7 +43,7 @@
             </g>
         </svg>
     </a>
-    <h1 class="tamTitle">Horários da Academia</h1>
+    <h1 class="text-xl font-bold">Horários da Academia</h1>
 
     <div class="felx flex-col">
         <div class="flex flex-row">

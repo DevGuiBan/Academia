@@ -17,6 +17,7 @@
 }
 
 .sidebar a {
+    transition: color 0.5s ease-in-out;
     padding: 2rem;
 }
 
@@ -42,8 +43,8 @@
 <div class="sidebar">
     <!-- Sidebar -->
     <div>
-        <h1>INVICTUS</h1><br>
-        <h1 class="text">ACADEMIA</h1>
+        <h1 class="text-xl font-bold">INVICTUS</h1><br>
+        <h1 class="text-xl font-bold text">ACADEMIA</h1>
     </div>
 
     <a href={{url('/treino')}} class="flex flex-row mt-5 {{ Request::is('treino') ? 'active' : '' }}">

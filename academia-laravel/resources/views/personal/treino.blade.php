@@ -9,8 +9,13 @@
         margin-left: 90%;
     }
 
-    .buttonAdd{
+    .buttonAdd {
         margin-left: 60%;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .buttonAdd:hover {
+        background-color: #86B201;
     }
 
     .card {
@@ -18,10 +23,11 @@
         width: 15%;
         padding: 1rem;
         margin-right: 1rem;
+        transition: box-shadow 0.5s ease-in-out;
     }
 
-    .tamTitle {
-        font-size: x-large;
+    .card:hover {
+        box-shadow: -10px 5px 10px -5px #86B201;
     }
 </style>
 @section('content')
@@ -36,7 +42,7 @@
             </g>
         </svg>
     </a>
-    <h1 class="tamTitle">Treinos</h1>
+    <h1 class="text-xl font-bold">Treinos</h1>
     <br>
     <div class="flex flex-row">
         <p>Treinos cadastrados</p>
@@ -50,26 +56,33 @@
                     <path d="M6 12H18" stroke="#212529" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </svg>
-            <a href="#" class="mt-1">Adicionar Treino</a>
+            <a href={{url('/salvar-treino')}} class="mt-1">Adicionar Treino</a>
         </button>
     </div>
 
     <br>
     <div class="flex flex-row">
         <div class="flex flex-col rounded card">
-            <h1>Peitoral</h1>
-            <br>
-            <p class="text-gray-400">Hipertrofia</p>
+            <a href={{url('/salvar-treino')}}>
+                <h1>Peitoral</h1>
+                <br>
+                <p class="text-gray-400">Hipertrofia</p>
+            </a>
+
         </div>
         <div class="flex flex-col rounded card">
-            <h1>Costas</h1>
-            <br>
-            <p class="text-gray-400">Hipertrofia</p>
+            <a href={{url('/salvar-treino')}}>
+                <h1>Costas</h1>
+                <br>
+                <p class="text-gray-400">Hipertrofia</p>
+            </a>
         </div>
         <div class="flex flex-col rounded card">
-            <h1>Abdomêm</h1>
-            <br>
-            <p class="text-gray-400">Força</p>
+            <a href={{url('/salvar-treino')}}>
+                <h1>Abdomêm</h1>
+                <br>
+                <p class="text-gray-400">Força</p>
+            </a>
         </div>
     </div>
 

@@ -11,40 +11,39 @@ use App\Models\Administrador;
 
 class AdministradorController extends Controller
 {
-    public function login(Request $request){
-
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
-            'email' =>['required','email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            $user = Administrador::where('email',$request->email)->first();
-
-            $request->session()->put('user_id',$user->id);
-
-            return redirect()->intended('teste');
+            $user = Administrador::where('email', $request->email)->first();
+            $request->session()->put('user_id', $user->id);
+            return redirect('/sign-in');
         }
+
         throw ValidationException::withMessages([
             'email' => 'As credenciais estão incorretas'
         ]);
     }
-    public function logout(Request $request){
+
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect('/login');
     }
 
-    
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $request->validate([
-            'nome' => ['required','string','max:255'],
-            'email' => ['required','string','email','max:255'],
-            'password' => ['required','string','min:6'],
+            'nome' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:6'],
         ]);
 
         Administrador::create([

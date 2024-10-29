@@ -35,6 +35,16 @@ class Aluno extends Model
     protected $hidden = [
         'password',
     ];
+  
+    public function plano()
+    {
+        return $this->belongsTo(Plano::class);
+    }
+  
+    public function setPasswordAluno($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
     /**
      * Get the attributes that should be cast.

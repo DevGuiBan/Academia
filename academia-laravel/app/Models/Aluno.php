@@ -11,7 +11,7 @@ class Aluno extends Model
 {
     protected $fillable = [
         'nome',
-        'aluno_id',
+        'id',
         'endereco',
         'password',
         'email',

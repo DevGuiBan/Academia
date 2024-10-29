@@ -16,7 +16,7 @@ O projeto **Academia** é uma aplicação Java desenvolvida para gerenciar infor
 
 A estrutura principal do código inclui:
 
-- **Classes de Modelo**: Representam as entidades do sistema, como `Aluno`, `Treinamento`, `AvaliacaoFisica`, etc.
+- **Classes de Modelo**: Representam as entidades do sistema, como `Aluno`, `Treino`, `Progresso`, etc.
 - **Repositórios**: Classes responsáveis pelo armazenamento e manipulação de dados das entidades.
 - **Controllers**: Contêm a lógica de negócio e as operações de manipulação das entidades.
 - **Interface de Usuário (UI)**: Interface que possibilita a interação com o sistema.

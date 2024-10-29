@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Plano extends Model
 {
     protected $fillable = [
-        'plano_id',
+        'id',
         'preco',
         'nome',
     ];
 
+   public function Mensalidade(){
+    return $this->hasOne(Mensalidade::class, 'id_plano', 'id');
+}
 }

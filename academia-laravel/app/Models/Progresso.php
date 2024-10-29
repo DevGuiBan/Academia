@@ -8,7 +8,7 @@ class Progresso extends Model
 {
     protected $fillable = [
 
-        'id_progresso',
+        'id',
         'id_aluno',
         'data',
         'detalhes_treino'

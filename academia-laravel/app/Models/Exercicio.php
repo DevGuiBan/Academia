@@ -9,9 +9,13 @@ class Exercicio extends Model
     protected $fillable = [
        'nome',
        'link_visualizacao',
-       'id_exercicio',
+       'id',
        'id_treinoFK',
        'rep_min'];
+
+       public function Treino(){
+        return $this -> belongsTo(Treino::class);
+       }
        
 
 }

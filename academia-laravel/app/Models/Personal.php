@@ -8,7 +8,7 @@ class Personal extends Model
 {
     protected $fillable = [
         'nome',
-        'personal_id',
+        'id',
         'endereco',
         'password',
         'email',

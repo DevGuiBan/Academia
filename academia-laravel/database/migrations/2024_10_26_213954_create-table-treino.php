@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('treino', function (Blueprint $table) {
             $table->id();
+            $table->string('musculo');
             $table->string('tipo_de_treino');
             $table->unsignedBigInteger('personal_id');
             $table->timestamps();

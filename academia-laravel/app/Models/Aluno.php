@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class Aluno extends Model
 {
@@ -21,12 +22,9 @@ class Aluno extends Model
     protected $table = 'alunos';
     protected $fillable = [
         'nome',
-<<<<<<< HEAD
         'id',
         'endereco',
         'password',
-=======
->>>>>>> b5e09a4c1142e24dac15ab82db58a3757e89d38e
         'email',
         'endereco',
         'plano_id',

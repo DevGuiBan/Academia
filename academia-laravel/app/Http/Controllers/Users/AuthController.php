@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Administrador;
+use App\Models\User;
 
-class AdministradorController extends Controller
+class AuthController extends Controller
 {
     public function login(Request $request)
     {
@@ -18,11 +18,13 @@ class AdministradorController extends Controller
             'password' => ['required'],
         ]);
 
+        $user = Auth::user();
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $user = Administrador::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
             $request->session()->put('user_id', $user->id);
-            return redirect('/sign-in');
+            return redirect($user->isAluno() ? '/aluno/treino' : '/personal/treino');
         }
 
         throw ValidationException::withMessages([
@@ -41,14 +43,18 @@ class AdministradorController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'nome' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'address' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:6'],
+            'role' => ['required', 'string', 'in:aluno,personal'],
         ]);
 
-        Administrador::create([
-            'nome' => $request->nome,
+        User::create([
+            'name' => $request->name,
             'email' => $request->email,
+            'address' => $request->address,
+            'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
 

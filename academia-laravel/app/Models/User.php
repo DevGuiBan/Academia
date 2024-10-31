@@ -21,7 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'address',
+        'role',
     ];
+
+    public const ROLE_PERSONAL = 'personal';
+    public const ROLE_ALUNO = 'aluno';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,5 +49,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Método para verificar se o usuário é um administrador
+    public function isPersonal()
+    {
+        return $this->role === self::ROLE_PERSONAL;
+    }
+
+    // Método para verificar se o usuário é um usuário comum
+    public function isAluno()
+    {
+        return $this->role === self::ROLE_ALUNO;
     }
 }

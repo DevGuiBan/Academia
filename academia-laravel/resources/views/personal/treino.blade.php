@@ -56,14 +56,14 @@
                     <path d="M6 12H18" stroke="#212529" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </svg>
-            <a href={{url('/salvar-treino')}} class="mt-1">Adicionar Treino</a>
+            <a href={{url('/personal/salvar-treino')}} class="mt-1">Adicionar Treino</a>
         </button>
     </div>
 
     <br>
     <div class="flex flex-row">
         <div class="flex flex-col rounded card">
-            <a href={{url('/salvar-treino')}}>
+            <a href={{url('/personal/salvar-treino')}}>
                 <h1>Peitoral</h1>
                 <br>
                 <p class="text-gray-400">Hipertrofia</p>
@@ -71,14 +71,14 @@
 
         </div>
         <div class="flex flex-col rounded card">
-            <a href={{url('/salvar-treino')}}>
+            <a href={{url('/personal/salvar-treino')}}>
                 <h1>Costas</h1>
                 <br>
                 <p class="text-gray-400">Hipertrofia</p>
             </a>
         </div>
         <div class="flex flex-col rounded card">
-            <a href={{url('/salvar-treino')}}>
+            <a href={{url('/personal/salvar-treino')}}>
                 <h1>Abdomêm</h1>
                 <br>
                 <p class="text-gray-400">Força</p>

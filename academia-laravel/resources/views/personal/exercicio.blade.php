@@ -165,6 +165,6 @@
         </tbody>
     </table>
     <br>
-    <button class="editButton bg-[#CCFF33] py-2 px-4 rounded max-w-md mt-4 text-[#212529]"><a href={{url('/salvar-exercicio')}}>Adicionar Exercicío</a></button>
+    <button class="editButton bg-[#CCFF33] py-2 px-4 rounded max-w-md mt-4 text-[#212529]"><a href={{url('/personal/salvar-exercicio')}}>Adicionar Exercicío</a></button>
 </div>
 @endsection

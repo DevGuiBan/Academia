@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('treino_exercicio', function (Blueprint $table) {
             $table->unsignedBigInteger('treino_id')->primary();
-            $table->unsignedBigInteger('aluno_id');
+            $table->unsignedBigInteger('exercicio_id');
             
             $table->foreign('treino_id')
                 ->references('id')
                 ->on('treino')
                 ->onDelete('cascade');
-            $table->foreign('aluno_id')
+            $table->foreign('exercicio_id')
                 ->references('id')
-                ->on('alunos')
+                ->on('exercicio')
                 ->onDelete('cascade');
         });
     }

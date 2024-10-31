@@ -22,7 +22,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->foreign('aluno_id')
                 ->references('id')
-                ->on('alunos')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }

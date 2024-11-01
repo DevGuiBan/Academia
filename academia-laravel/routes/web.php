@@ -15,57 +15,54 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
-Route::get('/teste', function(){
-    return view('teste');
-})->middleware(['auth']);
+Route::post('/sign-in', [AuthController::class, 'register'])->name('sign-in');
+Route::post('/authenticate', [AuthController::class, 'login'])->name('authenticate');
 
-Route::post('/sign-in',[AuthController::class, 'register'])->name('sign-in');
-// tem que ajeitar esse rota
-Route::post('/authenticate',[AuthController::class, 'login'])->name('authenticate');
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/logout',[AuthController::class, 'logout']);
+    Route::prefix('personal')->group(function () {
+        Route::get('/alunos', function () {
+            return view('personal.alunos');
+        });
+        
+        Route::get('/horario', function () {
+            return view('personal.horario');
+        });
+        
+        Route::get('/exercicio', function () {
+            return view('personal.exercicio');
+        });
+        
+        Route::get('/salvar-exercicio', function () {
+            return view('personal.salvarExercicio');
+        });
+        
+        Route::get('/salvar-treino', function () {
+            return view('personal.salvarTreino');
+        });
+        
+        Route::get('/treino', function () {
+            return view('personal.treino');
+        });
+    });
 
-// testes -> rota de personal
-Route::get('/personal/alunos',function(){
-    return view('personal.alunos');
+    Route::prefix('aluno')->group(function () {
+        Route::get('/treino', function () {
+            return view('aluno.treino');
+        });
+        
+        Route::get('/solicitar-treino', function () {
+            return view('aluno.solicitarTreino');
+        });
+        
+        Route::get('/progresso', function () {
+            return view('aluno.progresso');
+        });
+        
+        Route::get('/horario', function () {
+            return view('aluno.horario');
+        });
+    });
 });
-
-Route::get('/personal/horario',function(){
-    return view('horario');
-});
-
-Route::get('/personal/exercicio',function(){
-    return view('personal.exercicio');
-});
-
-Route::get('/personal/salvar-exercicio',function(){
-    return view('personal.salvarExercicio');
-});
-
-Route::get('/personal/salvar-treino',function(){
-    return view('personal.salvarTreino');
-});
-
-Route::get('/personal/treino',function(){
-    return view('personal.treino');
-});
-
-// testes aluno
-
-
-Route::get('/aluno/treino' ,function(){
-    return view('aluno.treino');
-});
-
-Route::get('/aluno/solicitar-treino', function(){
-    return view('aluno.solicitarTreino');
-});
-
-Route::get('/aluno/progresso', function(){
-    return view('aluno.progresso');
-});
-
-Route::get('/aluno/horario', function(){
-    return view('aluno.horario');
-});
-

@@ -23,8 +23,13 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = User::where('email', $request->email)->first();
-            $request->session()->put('user_id', $user->id);
-            return redirect($user->isAluno() ? '/aluno/treino' : '/personal/treino');
+            $request->session()->put('user_id', $user->id); 
+
+            if ($user->isAluno()) {
+                return redirect()->route('aluno.treino'); 
+            } else {
+                return redirect()->route('personal.treino'); 
+            }
         }
 
         throw ValidationException::withMessages([

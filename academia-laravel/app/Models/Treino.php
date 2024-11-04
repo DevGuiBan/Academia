@@ -13,12 +13,12 @@ class Treino extends Model
         'id',
         'musculo',
         'personal_id',
-        'tipo_treino'
+        'tipo_de_treino'
     ];
 
     public function exercicios()
     {
-        return $this->belongsToMany(Exercicio::class, 'treino_exercicios', 'treino_id', 'exercicio_id');
+        return $this->belongsToMany(Exercicio::class, 'treino_exercicio', 'treino_id', 'exercicio_id');
     }
 
     public function personal()

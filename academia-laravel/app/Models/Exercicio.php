@@ -10,13 +10,13 @@ class Exercicio extends Model
 
     protected $fillable = [
        'nome',
-       'link_visualizacao',
+       'link_de_visualizacao',
        'id',
-       'rep_min'
+       'quantidade_de_repeticoes'
     ];
 
     public function treinos()
     {
-        return $this->belongsToMany(Treino::class, 'treino_exercicios', 'exercicio_id', 'treino_id');
+        return $this->belongsToMany(Treino::class, 'treino_exercicio', 'exercicio_id', 'treino_id');
     }
 }

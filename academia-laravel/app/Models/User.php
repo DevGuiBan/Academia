@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -61,5 +62,15 @@ class User extends Authenticatable
     public function isAluno()
     {
         return $this->role === self::ROLE_ALUNO;
+    }
+
+    public function treinos()
+    {
+        if($this->isAluno()){
+            return $this->belongsToMany(Treino::class, 'aluno_treinos', 'aluno_id', 'treino_id');
+        }
+        if($this->isPersonal()){
+            return $this->hasMany(Treino::class, 'id');
+        }
     }
 }

@@ -4,28 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Treino extends Model
 {
+    protected $table = 'treino';
+
     protected $fillable = [
         'id',
-        'id_aluno',
-        'id_personal',
-        'tipo_treino',
-        'data'];
+        'musculo',
+        'personal_id',
+        'tipo_treino'
+    ];
 
-        public function Aluno(){
-            return $this->belongsTo(Aluno::class, 'id_aluno');
-        }
+    public function exercicios()
+    {
+        return $this->belongsToMany(Exercicio::class, 'treino_exercicios', 'treino_id', 'exercicio_id');
+    }
 
-        public function Personal(){
-            return $this->belongsTo(Personal::class, 'id_personal');
-        }
+    public function personal()
+    {
+        return $this->belongsTo(User::class, 'id_personal');
+    }
 
-        public function Progresso(){
-            return $this->hasMany(Progresso::class, 'id_treino');
-        }
+    public function progresso()
+    {
+        return $this->hasMany(Progresso::class, 'id');
+    }
 
-        public function Exercicio(){
-            return $this->hasMany(TreinoExercicio::class, 'treino_id');
-        }
+    public function alunos()
+{
+    return $this->belongsToMany(User::class, 'aluno_treinos', 'treino_id', 'aluno_id');
+}
 }

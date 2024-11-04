@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exercicio extends Model
 {
+    protected $table = 'exercicio';
+
     protected $fillable = [
        'nome',
        'link_visualizacao',
        'id',
-       'id_treinoFK',
-       'rep_min'];
+       'rep_min'
+    ];
 
-       public function Treino(){
-        return $this -> belongsTo(Treino::class);
-       }
-       
-
+    public function treinos()
+    {
+        return $this->belongsToMany(Treino::class, 'treino_exercicios', 'exercicio_id', 'treino_id');
+    }
 }

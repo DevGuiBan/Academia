@@ -4,7 +4,7 @@
     --color-1: hsl(210, 17%, 98%);
     --color-2: hsl(210, 14%, 83%);
     --color-3: hsl(210, 10%, 23%);
-    --color-B: rgba(206, 212, 218, 0.2);
+    --color-3B: rgba(206, 212, 218, 0.2);
     --color-4: #22262a;
     --color-5: hsl(75, 100%, 60%);
     --color-5B: rgba(204, 255, 51, 0.2);
@@ -17,6 +17,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: var(--font);
+    scroll-behavior: smooth;
 }
 
 body,

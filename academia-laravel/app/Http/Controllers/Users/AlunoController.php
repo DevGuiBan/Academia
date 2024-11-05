@@ -16,8 +16,7 @@ class AlunoController extends Controller
         return view('aluno.profile', compact('user'));
     }
     
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $user = User::find($id);
 
         $request->validate([
@@ -40,8 +39,7 @@ class AlunoController extends Controller
         return view('aluno.profile', compact('user'))->with('success', 'Seu perfil foi atualizado com sucesso!');
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         $user = User::find($id);
 
         if (!$user) {

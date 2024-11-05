@@ -36,7 +36,7 @@
                 <input type="email" name="email" id="email" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite seu e-mail">
 
                 <label for="address" class="text-gray-500">Endereço</label>
-                <input type="text" name="address" id="address" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Rua - N° - Estado">
+                <input type="text" name="address" id="address" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Rua - N° - Cidade">
 
                 <label for="password" class="text-gray-500">Senha</label>
                 <input type="password" name="password" id="password" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite sua senha">

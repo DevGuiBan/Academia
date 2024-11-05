@@ -21,7 +21,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     @endif
 </head>
-
+@if (session('error'))
+<script>
+    alert('Credenciais Inválidas');
+</script>
+@endif
 <body>
     <main class="flex justify-center items-center min-h-screen">
         <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6" style="height: 80vh;">

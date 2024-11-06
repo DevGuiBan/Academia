@@ -17,32 +17,42 @@ class AlunoTreinoController extends Controller{
     }
 
     public function store(Request $request){
-        $request->validate([
-            'aluno_id' => ['required', 'exists:users,id'],
-            'treino_id' => ['required', 'exists:treinos,id']
-        ]);
+        try{
+            $request->validate([
+                'aluno_id' => ['required', 'exists:users,id'],
+                'treino_id' => ['required', 'exists:treinos,id']
+            ]);
 
-        AlunoTreino::create([
-            'aluno_id' => $request->aluno_id,
-            'treino_id' => $request->treino_id,
-        ]);
+            AlunoTreino::create([
+                'aluno_id' => $request->aluno_id,
+                'treino_id' => $request->treino_id,
+            ]);
 
-        $aluno = User::find($request->user);
+            $aluno = User::find($request->user);
 
-        return redirect()->back()->with('success','Treino atribuído ao aluno' . $aluno->nome . 'com sucesso!');
+            return redirect()->back()->with('success','Treino atribuído ao aluno' . $aluno->nome . 'com sucesso!');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Erro ao atribuir treino ao aluno: ' . $e->getMessage());
+        }
     }
 
     public function update(Request $request, $id){
-        $alunoTreino = AlunoTreino::find($id);
-        
-        $request->validate([
-            'treino_id' => ['required', 'exists:treinos,id'],
-        ]);
+        try{
+            $alunoTreino = AlunoTreino::findOrFail($id);
+            
+            $request->validate([
+                'treino_id' => ['required', 'exists:treinos,id'],
+            ]);
 
-        $alunoTreino->treino_id = $request->treino_id;
-        $alunoTreino->save();
+            $alunoTreino->treino_id = $request->treino_id;
+            $alunoTreino->save();
 
-        return redirect('personal/treino')->with('sucess', 'Treino do aluno atualizado com sucesso!');
+            return redirect('personal/treino')->with('sucess', 'Treino do aluno atualizado com sucesso!');
+        }
+        catch(\Exception $e){
+            return redirect('personal/treino')->with('error', 'Não foi possível atualizar trein: ' . $e->getMessage());
+        }
     }
 
     public function edit($id){
@@ -53,9 +63,14 @@ class AlunoTreinoController extends Controller{
     }
 
     public function destroy($id){
-        $alunoTreino = AlunoTreino::find($id);
-        $alunoTreino->delete();
+        try{
+            $alunoTreino = AlunoTreino::find($id);
+            $alunoTreino->delete();
 
-        return redirect()->back()->with('success', 'Treino removido com sucesso!');
+            return redirect()->back()->with('success', 'Treino removido com sucesso!');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error', 'Erro ao remover treino: ' . $e->getMessage());
+        }
     }
 }

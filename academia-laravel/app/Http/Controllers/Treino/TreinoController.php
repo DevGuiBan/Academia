@@ -10,20 +10,25 @@ use Illuminate\Http\Request;
 
 class TreinoController extends Controller{
     public function store(Request $request, int $id){
-        $personal = User::findOrFail($id);
+        try{
+            $personal = User::findOrFail($id);
 
-        $request->validate([
-            'musculo' =>'required|string',
-            'tipo_treino' =>'required|string',
-        ]);
+            $request->validate([
+                'musculo' =>'required|string',
+                'tipo_treino' =>'required|string',
+            ]);
 
-        Treino::create([
-            'musculo' => $request->musculo,
-            'tipo_treino' => $request->tipo_treino,
-            'personal_id' => $personal->id,
-        ]);
+            Treino::create([
+                'musculo' => $request->musculo,
+                'tipo_treino' => $request->tipo_treino,
+                'personal_id' => $personal->id,
+            ]);
 
-        return redirect()->back()->with('success','Treino Criado com sucesso!');
+            return redirect()->back()->with('success','Treino Criado com sucesso!');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Não foi possível criar treino: ' . $e->getMessage());
+        }
     }
 
     public function index(){
@@ -31,18 +36,23 @@ class TreinoController extends Controller{
     }
 
     public function update(Request $request, int $id){
-        $treino = Treino::findOrFail($id);
-        
-        $request->validate([
-            'musculo' =>'required|string',
-            'tipo_de_treino' =>'required|string',
-        ]);
+        try{
+            $treino = Treino::findOrFail($id);
+            
+            $request->validate([
+                'musculo' =>'required|string',
+                'tipo_de_treino' =>'required|string',
+            ]);
 
-        $treino->musculo = $request->musculo;
-        $treino->tipo_de_treino = $request->tipo_de_treino;
-        $treino->save();
+            $treino->musculo = $request->musculo;
+            $treino->tipo_de_treino = $request->tipo_de_treino;
+            $treino->save();
 
-        return redirect()->route('personal.treino')->with('success','Treino Atualizado com sucesso!');
+            return redirect()->route('personal.treino')->with('success',value: 'Treino Atualizado com sucesso!');
+        }
+        catch(\Exception $e){
+            return redirect()->route('personal.treino')->with('error',value: 'Não foi possível atualizar treino: ' . $e->getMessage());
+        }
     }
 
     public function edit($id){

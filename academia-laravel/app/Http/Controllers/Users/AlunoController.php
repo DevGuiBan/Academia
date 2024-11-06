@@ -12,31 +12,36 @@ use App\Models\Treino;
 class AlunoController extends Controller
 {
     public function profile(int $id){
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('aluno.profile', compact('user'));
     }
     
     public function update(Request $request, $id){
-        $user = User::find($id);
+        try{
+            $user = User::findOrFail($id);
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'address' => ['required', 'string', 'max:255'],
-            'password' => ['nullable', 'string', 'min:6'],
-        ]);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', 'min:3'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+                'address' => ['required', 'string', 'max:255'],
+                'password' => ['nullable', 'string', 'min:6'],
+            ]);
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->address = $request->address;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->address = $request->address;
 
-        if (!empty($request->password)) {
-            $user->password = bcrypt($request->password);
-        }        
+            if (!empty($request->password)) {
+                $user->password = bcrypt($request->password);
+            }        
 
-        $user->save();
+            $user->save();
 
-        return view('aluno.profile', compact('user'))->with('success', 'Seu perfil foi atualizado com sucesso!');
+            return view('aluno.profile', compact('user'))->with('success', 'Seu perfil foi atualizado com sucesso!');
+        }
+        catch(\Exception $e){
+            return view('aluno.profile', compact('user'))->with('error', 'Não foi possível atualizar seu perfil.' . $e->getMessage());
+        }
     }
 
     public function destroy($id){
@@ -65,12 +70,17 @@ class AlunoController extends Controller
             'personal' => ['required','integer'],
         ]);
 
-        $personal = User::find($request->personal);
-        $treino = Treino::find($request->tipo);
+        try{
+            $personal = User::find($request->personal);
+            $treino = Treino::find($request->tipo);
 
-        $request->session()->put('aluno_id', $user->id);
-        $request->session()->put('treino', $treino->id);    
+            $request->session()->put('aluno_id', $user->id);
+            $request->session()->put('treino', $treino->id);    
 
-        return redirect('/personal/salvar-treino');
+            return redirect('/personal/salvar-treino');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('Erro ao solicitar treino. Por favor, tente novamente.' . $e->getMessage());
+        }
     }
 }

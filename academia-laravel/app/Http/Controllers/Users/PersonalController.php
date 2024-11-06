@@ -17,98 +17,118 @@ class PersonalController extends Controller
     }
 
     public function update(Request $request, $id){
-        $user = User::find($id);
+        try{
+            $user = User::find($id);
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', $user->id],
-            'address' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:6'],
-        ]);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', 'min:3'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', $user->id],
+                'address' => ['required', 'string', 'max:255'],
+                'password' => ['required', 'string', 'min:6'],
+            ]);
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->address = $request->address;
-        $user->password = $request->password;
-        $user->save();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->address = $request->address;
+            $user->password = $request->password;
+            $user->save();
 
-        return redirect('personal/profile')->with('success', 'Seu perfil foi atualizado com sucesso!');
+            return redirect('personal/profile')->with('success', 'Seu perfil foi atualizado com sucesso!');
+        }
+        catch(\Exception $e){
+            return redirect('personal/profile')->with('error', 'Ocorreu um erro ao atualizar seu perfil ' . $e->getMessage());
+        }
     }  
 
     public function destroy($id){
-        $user = User::find($id);
+        try{
+            $user = User::find($id);
 
-        if (!$user) {
-            return redirect()->route('personal.profile')->with('error', 'Personal não encontrado.');
+            if (!$user) {
+                return redirect()->route('personal.profile')->with('error', 'Personal não encontrado.');
+            }
+
+            try {
+                $user->delete();
+                Auth::logout();
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+                return redirect()->route('personal.profile')->with('error', 'Não foi possível excluir sua conta.');
+            }
+
+            return redirect()->route('login')->with('success', 'Sua conta foi excluída com sucesso!');
         }
-
-        try {
-            $user->delete();
-            Auth::logout();
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->route('personal.profile')->with('error', 'Não foi possível excluir sua conta.');
+        catch(\Exception $e){
+            return redirect()->route('personal.profile')->with('error', 'Ocorreu um erro ao excluir sua conta ' . $e->getMessage());
         }
-
-        return redirect()->route('login')->with('success', 'Sua conta foi excluída com sucesso!');
     }
 
     public function getExerciciosAluno($personal_id){
-        $aluno = User::findOrFail($personal_id);
+        try{
+            $aluno = User::findOrFail($personal_id);
 
-        if ($aluno && $aluno->isAluno()) {
-            $dadosTreinos = [];
+            if ($aluno && $aluno->isAluno()) {
+                $dadosTreinos = [];
 
-            $treinos = $aluno->treinos;
+                $treinos = $aluno->treinos;
 
-            foreach ($treinos as $treino) {
-                $dadosTreinos[] = [
-                    'musculo' => $treino->musculo,
-                    'tipo_de_treino' => $treino->tipo_de_treino,
-                    'exercicios' => $treino->exercicios->map(function ($exercicio) {
-                        return [
-                            'nome' => $exercicio->nome,
-                            'quantidade_de_repeticoes' => $exercicio->quantidade_de_repeticoes,
-                            'link_de_visualizacao' => $exercicio->link_de_visualizacao, // Se necessário
-                        ];
-                    }),
+                foreach ($treinos as $treino) {
+                    $dadosTreinos[] = [
+                        'musculo' => $treino->musculo,
+                        'tipo_de_treino' => $treino->tipo_de_treino,
+                        'exercicios' => $treino->exercicios->map(function ($exercicio) {
+                            return [
+                                'nome' => $exercicio->nome,
+                                'quantidade_de_repeticoes' => $exercicio->quantidade_de_repeticoes,
+                                'link_de_visualizacao' => $exercicio->link_de_visualizacao, // Se necessário
+                            ];
+                        }),
+                    ];
+                }
+
+                $resultado = [
+                    'aluno' => [
+                        'id' => $aluno->id,
+                        'nome' => $aluno->name,
+                    ],
+                    'treinos' => $dadosTreinos,
                 ];
-            }
 
-            $resultado = [
-                'aluno' => [
-                    'id' => $aluno->id,
-                    'nome' => $aluno->name,
-                ],
-                'treinos' => $dadosTreinos,
-            ];
-
-            return view('personal.exercicio', compact('resultado'));
-        }    
+                return view('personal.exercicio', compact('resultado'));
+            }    
+        }
+        catch(\Exception $e){
+            return view('personal.exercicio')->with('error', 'Ocorreu um erro: ' . $e->getMessage());
+        }
     }
 
     public function getTreinosDoPersonal($personalId){
-        $personal = User::findOrFail($personalId);
+        try{
+            $personal = User::findOrFail($personalId);
 
-        $treinosComExercicios = Treino::where('personal_id', $personalId)
-            ->with('exercicios') // Carrega os exercícios associados a cada treino
-            ->get();
-        $dados = [];
-        foreach ($treinosComExercicios as $treino) {
-            $dados[] = [
-                'treino' => $treino,
-                'exercicios' => $treino->exercicios->map(function ($exercicio) {
-                    return [
-                        'id' => $exercicio->id,
-                        'nome' => $exercicio->nome,
-                        'quantidade_de_repeticoes' => $exercicio->quantidade_de_repeticoes,
-                        'link_de_visualizacao' => $exercicio->link_de_visualizacao,
-                    ];
-                })->toArray(),
-            ];
+            $treinosComExercicios = Treino::where('personal_id', $personalId)
+                ->with('exercicios') 
+                ->get();
+            $dados = [];
+            foreach ($treinosComExercicios as $treino) {
+                $dados[] = [
+                    'treino' => $treino,
+                    'exercicios' => $treino->exercicios->map(function ($exercicio) {
+                        return [
+                            'id' => $exercicio->id,
+                            'nome' => $exercicio->nome,
+                            'quantidade_de_repeticoes' => $exercicio->quantidade_de_repeticoes,
+                            'link_de_visualizacao' => $exercicio->link_de_visualizacao,
+                        ];
+                    })->toArray(),
+                ];
+            }
+
+            return view('personal.exercicio', compact('dados', 'personal'));
         }
-
-        return view('personal.exercicio', compact('dados', 'personal'));
+        catch(\Exception $e){
+            return redirect()->route('personal.exercicios')->with('error', 'Erro ao carregar treinos: ' . $e->getMessage());
+        }
     }
 
 }

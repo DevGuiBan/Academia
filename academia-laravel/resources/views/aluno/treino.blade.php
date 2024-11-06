@@ -32,63 +32,35 @@
 </style>
 @section('content')
 <div class="flex flex-col space w-full">
-    <a href="#">
-        <svg viewBox="0 0 16 16" class="bell" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-                <path d="M3 5C3 2.23858 5.23858 0 8 0C10.7614 0 13 2.23858 13 5V8L15 10V12H1V10L3 8V5Z" fill="#CCFF33"></path>
-                <path d="M7.99999 16C6.69378 16 5.58254 15.1652 5.1707 14H10.8293C10.4175 15.1652 9.30621 16 7.99999 16Z" fill="#CCFF33"></path>
-            </g>
-        </svg>
-    </a>
+    <div class="flex flex-row" style="margin-left: 90%;">
+        <a href={{ route('aluno.profile', session('user_id')) }} class="mt-[-5]">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#CCFF33" width="50" height="50" viewBox="0 0 24 24"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"></path></g></svg>
+        </a>
+    </div>
     <h1 class="text-xl font-bold">Treinos</h1>
     <br>
     <div class="flex flex-row">
         <p>Treinos da Semana</p>
         <button class="flex flex-row bg-[#CCFF33] py-2 px-4 buttonAdd rounded text-[#212529]">
             <svg viewBox="0 0 24 24" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                    <rect width="24" height="24" fill="none"></rect>
-                    <path d="M12 6V18" stroke="#212529" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M6 12H18" stroke="#212529" stroke-linecap="round" stroke-linejoin="round"></path>
-                </g>
+                <path d="M12 6V18" stroke="#212529" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M6 12H18" stroke="#212529" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
-            <a href={{url('/aluno/solicitar-treino')}} class="mt-1">Solicitar Treino</a>
+            <a href={{route('aluno.solicitarTreino')}} class="mt-1">Solicitar Treino</a>
         </button>
     </div>
 
-    <br>
     <div class="flex flex-row">
-        <!-- Container dos cards e botões de navegação -->
+        @if ($treinos && count($treinos) > 0)
         <div class="relative">
-            <!-- Cartões de Treinos -->
             <div id="cards" class="flex">
-                <div class="card hidden bg-[#343A40] w-[15rem] p-4 rounded shadow-md hover:shadow-xl transition-shadow duration-500">
-                    <h1 class="text-white">Segunda</h1>
-                    <p class="text-gray-400">Peito</p>
+                @foreach ($treinos as $treino)
+                <div class="card bg-[#343A40] w-[15rem] p-4 rounded shadow-md hover:shadow-xl transition-shadow duration-500">
+                    <h1 class="text-white">{{$treino->treino->musculo}}</h1>
+                    <p class="text-gray-400">{{$treino->treino->tipo_de_treino}}</p>
                 </div>
-                <div class="card hidden bg-[#343A40] w-[15rem] p-4 rounded shadow-md hover:shadow-xl transition-shadow duration-500">
-                    <h1 class="text-white">Terça</h1>
-                    <p class="text-gray-400">Funcional</p>
-                </div>
-                <div class="card hidden bg-[#343A40] w-[15rem] p-4 rounded shadow-md hover:shadow-xl transition-shadow duration-500">
-                    <h1 class="text-white">Quarta</h1>
-                    <p class="text-gray-400">Gluteos</p>
-                </div>
-                <!-- Clone o bloco acima para mais cards, cada card terá a classe 'card' -->
-                <!-- Exemplo de card extra -->
-                <div class="card hidden bg-[#343A40] w-[15rem] p-4 rounded shadow-md hover:shadow-xl transition-shadow duration-500">
-                    <h1 class="text-white">Quinta</h1>
-                    <p class="text-gray-400">Crossfit - Cardio</p>
-                    <!-- Outros detalhes do card aqui -->
-                </div>
-                <!-- Adicione quantos cards forem necessários -->
+                @endforeach
             </div>
-
-            <!-- Botões de navegação -->
             <div class="flex justify-between mt-4">
                 <button onclick="previousCard()" class="bg-[#CCFF33] p-2 rounded hover:bg-[#86B201] transition-colors duration-300 text-[#212529]">
                     Anterior
@@ -98,7 +70,11 @@
                 </button>
             </div>
         </div>
+        @else
+        <h1>Nenhum Treino solicitado :(</h1>
+        @endif
     </div>
+
     <script>
         let currentIndex = 0;
         const cards = document.querySelectorAll('.card');
@@ -119,12 +95,12 @@
             showCard(currentIndex);
         }
 
-        // Exibir o primeiro card inicialmente
         showCard(currentIndex);
     </script>
 
+    <!-- Meus professores -->
+    <p class="mt-5 text-xl font-bold">Meus professores</p>
 
-    <p class="mt-5">Meus professores</p>
     <br>
     <div class="flex flex-row" style="width: 100%;">
         <div class="flex flex-col">
@@ -168,7 +144,6 @@
 
         </div>
     </div>
-
 
 </div>
 @endsection

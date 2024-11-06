@@ -1,0 +1,77 @@
+@import 'geral.css';
+
+section.site-section-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: right;
+    height: 100vh;
+    width: 100vw;
+    padding: 20px;
+    background-image: 
+        linear-gradient(0deg, rgba(34,38,42,1) 0%, rgba(53,59,65,0.24) 82%),
+        url('../images/img/gym.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+section.site-section-services {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-4);
+}
+
+section.site-section-about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: right;
+    height: 50%;
+    width: 100%;
+    padding: 20px;
+    background-image: 
+        linear-gradient(90deg, rgba(34, 38, 42, 0.93) 26%, rgba(53, 59, 65, 0.24) 100%),
+        url('../images/img/womangym2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+section.site-section-planes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-4);
+}
+
+section.site-section-testimonials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-4);
+}
+
+section.site-section-contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-4);
+}

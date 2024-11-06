@@ -1,0 +1,12 @@
+@import 'geral.css';
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: var(--color-4);
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid var(--color-3B);
+    width: 30%;
+}

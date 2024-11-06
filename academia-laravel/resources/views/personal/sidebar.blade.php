@@ -64,7 +64,7 @@
         </svg>
         Horários
     </a>
-    <a href={{url('/personal/exercicio')}} class="flex flex-row {{ Request::is('personal/exercicio') ? 'active' : '' }}">
+    <a href={{route('personal.exercicios',session('user_id'))}} class="flex flex-row {{ Request::routeIs('personal.exercicios') ? 'active' : '' }}">
         <svg fill="currentColor" class="image" viewBox="0 0 24 24" version="1.1" width="20" height="20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

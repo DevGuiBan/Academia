@@ -3,18 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Progresso extends Model
 {
+    protected $table = 'progresso';
+
     protected $fillable = [
 
         'id',
         'id_aluno',
         'data',
-        'detalhes_treino'
     ];
 
     public function aluno(){
-        return $this->belongsTo('App\Models\Aluno');
+        return $this->belongsTo(User::class,'id_aluno');
     }
 }

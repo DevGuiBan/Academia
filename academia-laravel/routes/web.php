@@ -12,8 +12,8 @@ use App\Http\Controllers\Treino\TreinoController;
 use App\Http\Controllers\Treino\NotificacaoController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('landing.landingpage');
+})->name('homepage');
 
 Route::get('/login', function () {
     return view('login');
@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
             return view('personal.horario');
         });
         
-        Route::get('/{id}/exercicio', [PersonalController::class, 'getExercicios'])
+        Route::get('/{id}/exercicio', [PersonalController::class, 'getTreinosDoPersonal'])
         ->name('personal.exercicios');
 
         Route::post('/salvar-exercicio', [ExercicioController::class, 'store'])
@@ -46,18 +46,33 @@ Route::middleware(['auth'])->group(function () {
         
         Route::post('/salvar-exercicio/{treino_id}/{exercicio_id}', [TreinoExercicioController::class, 'salvarExercicio'])
         ->name('personal.salvarExercicio');
+
+        Route::put('/salvar-exercicio/{id}',[ExercicioController::class, 'update'])
+        ->name('personal.updateExercicio');
+
+        Route::delete('/delete-exercicio/{id}',[ExercicioController::class,'destroy'])
+        ->name('personal.deleteExercicio');
         
         Route::get('/salvar-exercicio',[ExercicioController::class, 'index'])
         ->name('personal.exercicio');
 
-        Route::post('/selecionar-exercicios/{aluno_id}/{personal_id}/{treino_id}', [TreinoExercicioController::class, 'store'])
-        ->name('personal.salvarTreino');
+        Route::get('/salvar-exercicio/edit/{id}',[ExercicioController::class, 'edit'])
+        ->name('personal.exercicioEdit');
 
-        Route::get('/selecionar-exercicios/{aluno_id}/{personal_id}/{treino_id}', [TreinoExercicioController::class, 'selecionarExercicios'])
-        ->name('personal.selecionarExercicios');
+        Route::post('/selecionar-exercicios/{aluno_id}/{personal_id}/{treino_id}', [TreinoExercicioController::class, 'store'])
+        ->name('personal.selecionarExerciciosStore');
+
+        Route::get('/salvar-treino/edit/{treino_id}', [TreinoController::class, 'edit'])
+        ->name('personal.salvarTreino');
 
         Route::get('/treino/create',[TreinoController::class,'index'])
         ->name('personal.criarTreino');
+
+        Route::put('/salvar-treino/{treino_id}',[TreinoController::class,'update'])
+        ->name('personal.updateTreino');
+
+        Route::get('/selecionar-exercicios/{aluno_id}/{personal_id}/{treino_id}', [TreinoExercicioController::class, 'selecionarExercicios'])
+        ->name('personal.selecionarExercicios');
 
         Route::post('/treino/create/{id}',[TreinoController::class,'store'])
         ->name('personal.create');
@@ -68,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/treino', [SolicitarTreinoController::class, 'index']
         )->name('personal.treino');
 
-        Route::post('/notificacao/{id}/lida', [NotificacaoController::class, 'marcarComoLida'])
+        Route::post('/notificacao/{id}/lida/{aluno_id}/{personal_id}/{treino_id}', [NotificacaoController::class, 'marcarComoLida'])
         ->name('notificacao.lida');
 
         Route::get('/profile/{id}',[PersonalController::class,'profile'])

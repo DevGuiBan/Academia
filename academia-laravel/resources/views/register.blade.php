@@ -13,6 +13,12 @@
             background-color: #212529;
             font-family: 'Epilogue', sans-serif;
         }
+
+        .home {
+            margin-left: 2%;
+            margin-top: 2%;
+            position: fixed;
+        }
     </style>
     <!-- Adicionando tailwindcss -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -23,6 +29,13 @@
 </head>
 
 <body>
+    <header>
+        <a class="home" href="{{route('homepage')}}">
+            <svg width="40" height="40" viewBox="0 0 4242 3001" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1595.44 0C1596.09 0 1596.7 0.31526 1597.08 0.845479L2119.14 739.301C2119.93 740.428 2121.61 740.428 2122.4 739.301L2644.46 0.84546C2644.83 0.31524 2645.44 0 2646.09 0H4239.53C4241.15 0 4242.1 1.82985 4241.17 3.15454L3707.52 758H2664.65V890H3614.2L3052.17 1685H2681.65V1817H2958.85L2122.4 3000.16C2121.6 3001.29 2119.93 3001.29 2119.13 3000.16L1282.69 1817H1629.65V1685H1189.37L627.334 890H1618.65V758H534.016L0.370398 3.15455C-0.566105 1.82986 0.3812 0 2.0035 0H1595.44Z" fill="#CCFF33" />
+            </svg>
+        </a>
+    </header>
     <main class="flex justify-center items-center h-screen">
         <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6 rounded-lg" style="height: auto;">
             <h1 class="text-white text-xl font-bold mb-4">Criar conta na Invictus</h1>

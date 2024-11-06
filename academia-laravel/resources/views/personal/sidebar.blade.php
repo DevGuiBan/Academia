@@ -26,11 +26,7 @@
 }
 
 .button_exit {
-    margin-top: 5rem;
-}
-
-.text {
-    margin-top: -2rem;
+    margin-top: 1rem;
 }
 .image{
     margin-right: 0.5rem;
@@ -42,12 +38,9 @@
 @section('sidebar')
 <div class="sidebar">
     <!-- Sidebar -->
-    <div>
-        <h1 class="text-xl font-bold">INVICTUS</h1><br>
-        <h1 class="text-xl font-bold text">ACADEMIA</h1>
-    </div>
+     <img class="mt-[-50]" src="{{asset('images/logo_academia.png')}}" alt="logo_academia" width="400" height="400">
 
-    <a href={{url('/personal/treino')}} class="flex flex-row mt-5 {{ Request::is('personal/treino') ? 'active' : '' }}">
+    <a href={{url('/personal/treino')}} class="flex flex-row mt-[-60] {{ Request::is('personal/treino') ? 'active' : '' }}">
         <svg fill="currentColor" class="image" viewBox="0 0 24 24" id="Layer_1" width="20" height="20" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

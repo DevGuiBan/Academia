@@ -47,3 +47,10 @@ div.site-section__planes__card__premium {
     background: linear-gradient(180deg, rgba(204,255,51,0.2) 0%, rgba(53,59,65,0.13769257703081228) 54%);
     border: 1px solid var(--color-5B);
 }
+
+div.site-section__testimonials__card__score {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}

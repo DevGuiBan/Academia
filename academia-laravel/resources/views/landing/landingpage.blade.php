@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{asset('css/text.css')}}">
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
 
-    <link rel="shortcut icon" href="{{assert('images/svg/Component 1.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('images/svg/Component1.ico')}}" type="image/x-icon">
     <title>Invictus | Academia Inteligente</title>
 </head>
 <body>
@@ -231,7 +231,14 @@
 
             <div class="site-section__testimonials">
                 <div class="site-section__testimonials__card">
-                    <h3>Lucas M.</h3>
+                    <img class="site-section__testimonials__card__avatar" src="{{asset('images/svg/avatar1.svg')}}" alt="Avatar" draggable="false">
+                    <h3>Lucas Monteiro</h3>
+                    <div class="site-section__testimonials__card__score">
+                        <p>5/5</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" fill="#ccff33"/>
+                        </svg>
+                    </div>
                     <p>
                         A Invictus me ajudou a transformar minha rotina e a superar meus próprios limites. 
                         Aqui me sinto motivado todos os dias!
@@ -239,7 +246,14 @@
                 </div>
 
                 <div class="site-section__testimonials__card">
-                    <h3>Camila S.</h3>
+                    <img class="site-section__testimonials__card__avatar" src="{{asset('images/svg/avatar3.svg')}}" alt="Avatar" draggable="false">
+                    <h3>Camila Silva</h3>
+                    <div class="site-section__testimonials__card__score">
+                        <p>5/5</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" fill="#ccff33"/>
+                        </svg>
+                    </div>
                     <p>
                         A equipe da Invictus me acolheu desde o primeiro dia. 
                         Com o Plano Premium, sinto que cada treino é único e feito para mim.
@@ -247,7 +261,14 @@
                 </div>
 
                 <div class="site-section__testimonials__card">
-                    <h3>Rafael T.</h3>
+                    <img class="site-section__testimonials__card__avatar" src="{{asset('images/svg/avatar2.svg')}}" alt="Avatar" draggable="false">
+                    <h3>Rafael Teixeira</h3>
+                    <div class="site-section__testimonials__card__score">
+                        <p>5/5</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" fill="#ccff33"/>
+                        </svg>
+                    </div>
                     <p>
                         A energia da Invictus é incrível! As aulas coletivas são desafiadoras e divertidas. 
                         Nunca fui tão fiel a uma rotina de treinos quanto agora.
@@ -255,7 +276,14 @@
                 </div>
 
                 <div class="site-section__testimonials__card">
-                    <h3>Larissa P.</h3>
+                    <img class="site-section__testimonials__card__avatar" src="{{asset('images/svg/avatar4.svg')}}" alt="Avatar" draggable="false">
+                    <h3>Larissa Pereira</h3>
+                    <div class="site-section__testimonials__card__score">
+                        <p>5/5</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" fill="#ccff33"/>
+                        </svg>
+                    </div>
                     <p>
                         Escolhi a Invictus pelo suporte diferenciado e não me arrependo. 
                         Os profissionais são excelentes, e o ambiente é motivador.
@@ -270,13 +298,13 @@
             </p>
             <form action="" method="post">
                 <label for="nome">Nome:</label>
-                <input type="text" placeholder="Nome">
+                <input type="text" placeholder="Nome" required minlength="0" maxlength="100">
 
                 <label for="email">Email:</label>
-                <input type="email" placeholder="Email">
+                <input type="email" placeholder="Email" required minlength="0" maxlength="100">
 
-                <label for="mensagem">Mensegem:</label>
-                <textarea name="mensagem" id="mensagem" placeholder="Digite sua mensagem..."></textarea>
+                <label for="mensagem">Mensagem:</label>
+                <textarea name="mensagem" id="mensagem" placeholder="Digite sua mensagem..." required minlength="0" maxlength="100"></textarea>
 
                 <input type="submit" value="Enviar Mensagem" name="" id="">
                 <input type="reset" value="Limpar Campos">

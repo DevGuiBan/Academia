@@ -1,7 +1,7 @@
 @extends('aluno.sidebar')
 
 @section('content')
-<div class="p-2">
+<div class="p-20">
     <form action={{route('aluno.update',$user->id)}} method="POST" class="w-full mt-6">
         @csrf
         @method('PUT')

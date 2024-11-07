@@ -70,7 +70,7 @@
             <select name="musculo" id="musculo" class="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600">
                 @if ($treinos)
                     @foreach ($treinos as $treino)
-                        <option value={{$treino->id}}>{{$treino->musculo}}</option>
+                        <option value={{$treino->id}}>{{$treino->musculo}} - {{$treino->tipo_de_treino}}</option>
                     @endforeach
                 @else
                     <option value="blank">Nenhum Treino Encontrado</option>

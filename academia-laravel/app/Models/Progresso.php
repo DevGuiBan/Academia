@@ -10,13 +10,18 @@ class Progresso extends Model
     protected $table = 'progresso';
 
     protected $fillable = [
-
         'id',
-        'id_aluno',
+        'aluno_id',
+        'progresso',
+        'treino_id',
         'data',
     ];
 
     public function aluno(){
-        return $this->belongsTo(User::class,'id_aluno');
+        return $this->belongsTo(User::class,'aluno_id');
+    }
+
+    public function treino(){
+        return $this->hasOne(Treino::class,'id');
     }
 }

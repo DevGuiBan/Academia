@@ -34,15 +34,13 @@
 @section('content')
 @if (session('success'))
 <script>
-    alert('{{ session('
-        success ') }}');
+    alert('{{ session('success') }}');
 </script>
 @endif
 
 @if (session('error'))
 <script>
-    alert('{{ session('
-        error ') }}');
+    alert('{{ session('error') }}');
 </script>
 @endif
 <div class="flex flex-col space w-full">
@@ -125,7 +123,7 @@
         </div>
         @else
         <h1>Nenhuma solicitação feita :< </h1>
-        @endif
+                @endif
 
 
     </div>

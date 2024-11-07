@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 
     Route::prefix('personal')->group(function () {
-        Route::get('/alunos',[SolicitarTreinoController::class,'indexAlunos'])
+        Route::get('/alunos/{id_personal}',[SolicitarTreinoController::class,'indexAlunos'])
         ->name('personal.alunos');
         
         Route::get('/horario', function () {
@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/salvar-exercicio/{treino_id}/{exercicio_id}', [TreinoExercicioController::class, 'salvarExercicio'])
         ->name('personal.salvarExercicio');
 
-        Route::put('/salvar-exercicio/{id}',[ExercicioController::class, 'update'])
+        Route::put('/salvar-exercicio/{personal_id}/{id}',[ExercicioController::class, 'update'])
         ->name('personal.updateExercicio');
 
         Route::delete('/delete-exercicio/{id}',[ExercicioController::class,'destroy'])
@@ -100,6 +100,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/treino', [AlunoTreinoController::class,'index'])
         ->name('aluno.treino');
 
+        Route::get('/exercicios/{aluno_id}/{treino_id}', [AlunoTreinoController::class,'getAlunoTreino'])
+        ->name('aluno.getExercicios');
+
+        Route::get('/exercicio/concluir-treino/{id_aluno}/{id_treino}',[AlunoTreinoController::class, 'addProgresso'])
+        ->name('aluno.concluirTreino');
+
         Route::get('/profile/{id}',[AlunoController::class,'profile'])
         ->name('aluno.profile');
 
@@ -115,9 +121,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/solicitar-treino/{id}',[SolicitarTreinoController::class,'store'])
         ->name('solicitar-treino');
         
-        Route::get('/progresso', function () {
-            return view('aluno.progresso');
-        });
+        Route::get('/progresso/{aluno_id}', [AlunoTreinoController::class,'getProgresso'])
+        ->name('aluno.progresso');
         
         Route::get('/horario', function () {
             return view('aluno.horario');

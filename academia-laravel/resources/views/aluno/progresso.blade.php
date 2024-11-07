@@ -33,17 +33,7 @@
 @section('content')
 <div class="flex flex-col space w-full">
     <div class="flex flex-row ">
-        <a href="#" style="margin-left: 90%;">
-            <svg viewBox="0 0 16 16" class="bell" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                    <path d="M3 5C3 2.23858 5.23858 0 8 0C10.7614 0 13 2.23858 13 5V8L15 10V12H1V10L3 8V5Z" fill="#CCFF33"></path>
-                    <path d="M7.99999 16C6.69378 16 5.58254 15.1652 5.1707 14H10.8293C10.4175 15.1652 9.30621 16 7.99999 16Z" fill="#CCFF33"></path>
-                </g>
-            </svg>
-        </a>
-        <a href={{ route('aluno.profile', session('user_id')) }} class="ml-10 mt-[-5]">
+        <a href={{ route('aluno.profile', session('user_id')) }} class="mt-[-5]" style="margin-left: 95%;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#CCFF33" width="30" height="30" viewBox="0 0 24 24">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -54,55 +44,59 @@
         </a>
     </div>
     <h1 class="text-xl font-bold">Progresso</h1>
-    <br>
-    <div class="flex flex-row">
-        <p>Fichas de treino</p>
-    </div>
 
     <br>
-    <div class="flex flex-row">
-        <div class="flex flex-col rounded card">
-            <h1>Segunda a Sexta</h1>
-            <br>
-            <p class="text-gray-400">Musculação - Funcional</p>
-            <div class="flex flex-row">
-                <svg xmlns="http://www.w3.org/2000/svg" class="image" width="16" height="16" fill="#9CA3AF" class="bi bi-clock" viewBox="0 0 16 16">
-                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
-                </svg>
-                <p class="tam text-gray-400">05:00 - 12:00</p>
-                <a href="https://www.bing.com/maps?mepi=127%7E%7EUnknown%7EAddress_Link&ty=18&q=Invictus+Academia&ss=ypid.YN7993x14742333165683499671&ppois=-23.646400451660156_-46.67100143432617_Invictus+Academia_YN7993x14742333165683499671%7E&cp=-23.646392%7E-46.670995&v=2&sV=1&FORM=MPSRPL&lvl=16.0" class="flex flex-row">
-                    <svg viewBox="0 0 192 192" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path stroke="#9CA3AF" stroke-width="12" d="M96 22a51.88 51.88 0 0 0-36.77 15.303A52.368 52.368 0 0 0 44 74.246c0 16.596 4.296 28.669 20.811 48.898a163.733 163.733 0 0 1 20.053 28.38C90.852 163.721 90.146 172 96 172c5.854 0 5.148-8.279 11.136-20.476a163.723 163.723 0 0 1 20.053-28.38C143.704 102.915 148 90.841 148 74.246a52.37 52.37 0 0 0-15.23-36.943A51.88 51.88 0 0 0 96 22Z"></path>
-                            <circle cx="96" cy="74" r="20" stroke="#9CA3AF" stroke-width="12"></circle>
-                        </g>
-                    </svg>
-                    <p class="tam text-gray-400">Academia Invictus</p>
-                </a>
-            </div>
+    <br>
+    <div class="relative">
+        @if($progresso && count($progresso) > 0)
+        <div id="cards" class="flex">
+            @foreach ($progresso as $treino)
+            <a href={{route('aluno.getExercicios',['aluno_id'=>session('user_id'),'treino_id'=>$treino->treino->id])}}>
+                <div class="card bg-[#343A40] w-[15rem] p-4 rounded shadow-md hover:shadow-xl transition-shadow duration-500">
+                    <h1 class="text-white">{{$treino->treino->musculo}}</h1>
+                    <p class="text-gray-400">{{$treino->treino->tipo_de_treino}}</p>
+                    <p class="text-gray-400">Concluído: {{ number_format(($treino->progresso / 30) * 100, 2) }}% </p>
+                </div>
+            </a>
+
+            @endforeach
+        </div>
+        <div class="flex mt-4">
+            <button onclick="previousCard()" class="bg-[#CCFF33] mr-20 p-2 rounded hover:bg-[#86B201] transition-colors duration-300 text-[#212529]">
+                Anterior
+            </button>
+            <button onclick="nextCard()" class="bg-[#CCFF33] p-2 rounded hover:bg-[#86B201] transition-colors duration-300 text-[#212529]">
+                Próximo
+            </button>
         </div>
     </div>
+    @else
+    <h1>Nenhum Treino concluido :< </h1>
+    @endif
+</div>
 
-    <br>
-    <br>
-    <div class="flex flex-row">
-        <p>Treinos realizados</p>
-    </div>
+<script>
+    let currentIndex = 0;
+    const cards = document.querySelectorAll('.card');
 
-    <div class="flex flex-row">
-        <div class="card mt-2 rounded">
-            <h3 class="text-xl text-bold">Musculação</h3>
-            <p>Progresso: 50%</p>
-        </div>
+    function showCard(index) {
+        cards.forEach((card, i) => {
+            card.classList.toggle('hidden', i !== index);
+        });
+    }
 
-        <div class="card mt-2 rounded">
-            <h3 class="text-xl text-bold">Yoga</h3>
-            <p>Progresso: 35%</p>
-        </div>
-    </div>
+    function nextCard() {
+        currentIndex = (currentIndex + 1) % cards.length;
+        showCard(currentIndex);
+    }
+
+    function previousCard() {
+        currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+        showCard(currentIndex);
+    }
+
+    showCard(currentIndex);
+</script>
 
 
 </div>

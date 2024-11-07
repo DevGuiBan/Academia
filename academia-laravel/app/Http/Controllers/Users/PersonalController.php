@@ -63,45 +63,6 @@ class PersonalController extends Controller
         }
     }
 
-    public function getExerciciosAluno($personal_id){
-        try{
-            $aluno = User::findOrFail($personal_id);
-
-            if ($aluno && $aluno->isAluno()) {
-                $dadosTreinos = [];
-
-                $treinos = $aluno->treinos;
-
-                foreach ($treinos as $treino) {
-                    $dadosTreinos[] = [
-                        'musculo' => $treino->musculo,
-                        'tipo_de_treino' => $treino->tipo_de_treino,
-                        'exercicios' => $treino->exercicios->map(function ($exercicio) {
-                            return [
-                                'nome' => $exercicio->nome,
-                                'quantidade_de_repeticoes' => $exercicio->quantidade_de_repeticoes,
-                                'link_de_visualizacao' => $exercicio->link_de_visualizacao, // Se necessário
-                            ];
-                        }),
-                    ];
-                }
-
-                $resultado = [
-                    'aluno' => [
-                        'id' => $aluno->id,
-                        'nome' => $aluno->name,
-                    ],
-                    'treinos' => $dadosTreinos,
-                ];
-
-                return view('personal.exercicio', compact('resultado'));
-            }    
-        }
-        catch(\Exception $e){
-            return view('personal.exercicio')->with('error', 'Ocorreu um erro: ' . $e->getMessage());
-        }
-    }
-
     public function getTreinosDoPersonal($personalId){
         try{
             $personal = User::findOrFail($personalId);

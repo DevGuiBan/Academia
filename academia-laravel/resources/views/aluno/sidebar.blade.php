@@ -66,7 +66,7 @@
         </svg>
         Horários
     </a>
-    <a href={{url('/aluno/progresso')}} class="flex flex-row {{ Request::is('aluno/progresso') ? 'active' : '' }}">
+    <a href={{route('aluno.progresso',['aluno_id'=>session('user_id')])}} class="flex flex-row {{ Request::is('aluno/progresso') ? 'active' : '' }}">
         <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

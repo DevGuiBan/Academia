@@ -15,12 +15,12 @@ class TreinoController extends Controller{
 
             $request->validate([
                 'musculo' =>'required|string',
-                'tipo_treino' =>'required|string',
+                'tipo_de_treino' =>'required|string',
             ]);
 
             Treino::create([
                 'musculo' => $request->musculo,
-                'tipo_treino' => $request->tipo_treino,
+                'tipo_de_treino' => $request->tipo_de_treino,
                 'personal_id' => $personal->id,
             ]);
 
@@ -48,10 +48,10 @@ class TreinoController extends Controller{
             $treino->tipo_de_treino = $request->tipo_de_treino;
             $treino->save();
 
-            return redirect()->route('personal.treino')->with('success',value: 'Treino Atualizado com sucesso!');
+            return redirect()->route('personal.treino')->with('success', 'Treino Atualizado com sucesso!');
         }
         catch(\Exception $e){
-            return redirect()->route('personal.treino')->with('error',value: 'Não foi possível atualizar treino: ' . $e->getMessage());
+            return redirect()->route('personal.treino')->with('error', 'Não foi possível atualizar treino: ' . $e->getMessage());
         }
     }
 

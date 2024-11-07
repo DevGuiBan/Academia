@@ -12,8 +12,14 @@ use App\Models\Treino;
 class AlunoController extends Controller
 {
     public function profile(int $id){
-        $user = User::findOrFail($id);
-        return view('aluno.profile', compact('user'));
+        try{
+            $user = User::findOrFail($id);
+            return view('aluno.profile', compact('user'));
+        }
+        catch(\Exeption){
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error','Não foi possivel acessar o Perfil do Aluno');
+        }
     }
     
     public function update(Request $request, $id){
@@ -40,6 +46,7 @@ class AlunoController extends Controller
             return view('aluno.profile', compact('user'))->with('success', 'Seu perfil foi atualizado com sucesso!');
         }
         catch(\Exception $e){
+            Log::error($e->getMessage());
             return view('aluno.profile', compact('user'))->with('error', 'Não foi possível atualizar seu perfil.' . $e->getMessage());
         }
     }
@@ -62,25 +69,4 @@ class AlunoController extends Controller
         return redirect()->route('login')->with('success', 'Sua conta foi excluída com sucesso!');
     }
 
-    public function solicitarTreino(Request $request,int $id_aluno){
-        $user = User::find($id_aluno);
-
-        $request->validate([
-            'tipo' => ['required','integer'],
-            'personal' => ['required','integer'],
-        ]);
-
-        try{
-            $personal = User::find($request->personal);
-            $treino = Treino::find($request->tipo);
-
-            $request->session()->put('aluno_id', $user->id);
-            $request->session()->put('treino', $treino->id);    
-
-            return redirect('/personal/salvar-treino');
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('Erro ao solicitar treino. Por favor, tente novamente.' . $e->getMessage());
-        }
-    }
 }

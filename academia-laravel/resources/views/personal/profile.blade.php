@@ -1,8 +1,8 @@
 @extends('personal.sidebar')
 
 @section('content')
-<div>
-    <form action={{route('personal.update',$user->id)}} method="POST" class="w-full mt-6 p-10">
+<div class="p-20">
+    <form action={{route('personal.update',$user->id)}} method="POST" class="w-full mt-6">
         @csrf
         @method('PUT')
         <label for="name" class="text-gray-500">Nome</label>
@@ -19,7 +19,7 @@
 
         <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
     </form>
-    <form class="p-10" action={{route('personal.delete',$user->id)}} method="POST" class="w-full mt-6">
+    <form action={{route('personal.delete',$user->id)}} method="POST" class="w-full mt-6">
         @csrf
         @method('DELETE')
 

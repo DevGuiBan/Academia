@@ -45,14 +45,14 @@ class ExercicioController extends Controller{
         }
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id,$personal_id){
         try{
             $exercicio = Exercicio::findOrFail($id);
             
             $request->validate([
                 'nome' => ['required', 'string'],
-                'link_visualizacao' => ['required', 'url'],
-                'rep_min' => ['required', 'integer'],
+                'link' => ['required'],
+                'repeticoes' => ['required'],
             ]);
 
             $exercicio->nome = $request->nome;
@@ -60,10 +60,10 @@ class ExercicioController extends Controller{
             $exercicio->rep_min = $request->rep_min;
             $exercicio->save();
 
-            return redirect('personal/exercicio')->with('sucess', 'Exercício atualizado com sucesso!');
+            return redirect()->route('personal.exercicios',['id'=>$personal_id])->with('sucess', 'Exercício atualizado com sucesso!');
         }    
         catch(\Exception $e){
-            return redirect('personal/exercicio')->with('error', 'Erro ao atualizar o exercício' . $e->getMessage());
+            return redirect()->route('personal.exercicios',['id'=>$personal_id])->with('error', 'Erro ao atualizar o exercício' . $e->getMessage());
         }
     }
 

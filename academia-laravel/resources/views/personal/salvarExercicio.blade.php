@@ -53,7 +53,7 @@
     <br>
     @if (isset($exercicio))
     <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action={{route('personal.updateExercicio',['id'=>$exercicio->id])}} method="POST" class="w-full mt-6">
+        <form action={{route('personal.updateExercicio',['id'=>$exercicio->id,'personal_id'=>session('user_id')])}} method="post" class="w-full mt-6">
             @csrf
             @method('PUT')
             <label for="nome" class="text-gray-500">Nome do Exercicio</label>
@@ -70,7 +70,7 @@
     </div>
     @else
     <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action={{route('personal.createExercicio')}} method="POST" class="w-full mt-6">
+        <form action={{route('personal.createExercicio')}} method="post" class="w-full mt-6">
             @csrf
             <label for="nome" class="text-gray-500">Nome do Exercicio</label>
             <input type="text" name="nome" id="nome" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite o nome do exercicio">

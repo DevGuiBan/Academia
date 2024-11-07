@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Treino;
 
 use App\Models\AlunoTreino;
 use App\Models\TreinoExercicio;
-use App\Models\Treino;
+use App\Models\Exercicio;   
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Exercicio;
 
 class TreinoExercicioController extends Controller{
-    public function store(Request $request, $aluno_id, $treino_id){
+    public function store(Request $request, $aluno_id,$personal_id, $treino_id){
         try{
             $request->validate([
                 'exercicios' => 'required|array|min:1',
@@ -39,22 +38,6 @@ class TreinoExercicioController extends Controller{
         $exercicios = Exercicio::all();
 
         return view('personal.salvarTreino', compact('exercicios', 'aluno_id', 'personal_id', 'treino_id'));
-    }
-
-    public function index(){
-
-    }
-
-    public function update(Request $request, $id){
-
-    }
-
-    public function edit($id){
-        
-    }
-
-    public function destroy($id){
-
     }
     
 }

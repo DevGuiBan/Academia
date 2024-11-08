@@ -38,7 +38,7 @@
 @section('sidebar')
 <div class="sidebar">
     <!-- Sidebar -->
-     <img class="mt-[-50]" src="{{asset('images/logo_academia.png')}}" alt="logo_academia" width="400" height="400">
+    <img class="mt-[-50]" src="{{asset('images/logo_academia.png')}}" alt="logo_academia" width="250" height="250">
 
     <a href={{url('/personal/treino')}} class="flex flex-row mt-[-60] {{ Request::is('personal/treino') ? 'active' : '' }}">
         <svg fill="currentColor" class="image" viewBox="0 0 24 24" id="Layer_1" width="20" height="20" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">

@@ -44,12 +44,9 @@
 @section('sidebar')
 <div class="sidebar">
     <!-- Sidebar -->
-    <div>
-        <h1 class="text-xl font-bold">INVICTUS</h1><br>
-        <h1 class="text-xl font-bold text">ACADEMIA</h1>
-    </div>
+    <img class="mt-[-50]" src="{{asset('images/logo_academia.png')}}" alt="logo_academia" width="250" height="250">
 
-    <a href={{url('/aluno/treino')}} class="flex flex-row mt-5 {{ Request::is('aluno/treino') ? 'active' : '' }}">
+    <a href={{url('/aluno/treino')}} class="flex flex-row mt-[-40] {{ Request::is('aluno/treino') ? 'active' : '' }}">
         <svg fill="currentColor" class="image" viewBox="0 0 24 24" id="Layer_1" width="20" height="20" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

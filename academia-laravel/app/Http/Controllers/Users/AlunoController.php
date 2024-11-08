@@ -16,7 +16,7 @@ class AlunoController extends Controller
             $user = User::findOrFail($id);
             return view('aluno.profile', compact('user'));
         }
-        catch(\Exeption){
+        catch(\Exception $e){
             Log::error($e->getMessage());
             return redirect()->back()->with('error','Não foi possivel acessar o Perfil do Aluno');
         }

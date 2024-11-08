@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Treino;
+use App\Models\Progresso;
 
 
 class AlunoTreinoController extends Controller{
@@ -91,7 +92,7 @@ class AlunoTreinoController extends Controller{
             foreach ($personais as $personalId) {
                 $treinosComExercicios = Treino::where('personal_id', $personalId)
                     ->where('id',$treino_id)
-                    ->with('exercicios') // Carrega os exercícios associados a cada treino
+                    ->with('exercicios') 
                     ->get();
 
                 foreach ($treinosComExercicios as $treino) {

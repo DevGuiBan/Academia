@@ -15,7 +15,7 @@
         <input type="text" name="address" id="address" value="{{$user->address}}" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Ex: 3 x 10">
 
         <label for="password" class="text-gray-500">Senha</label>
-        <input type="password" name="password" id="password" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded">
+        <input type="password" name="password" id="password" class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded">
 
         <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
     </form>

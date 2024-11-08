@@ -55,7 +55,7 @@
 @endif
 @section('content')
 <div class="flex flex-col space w-full">
-    <div class="flex flex-row" style="margin-left: 95%;">
+    <div class="flex flex-row">
         <a href={{ route('aluno.profile', session('user_id')) }} class="mt-[-5]" style="margin-left: 95%;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#CCFF33" width="30" height="30" viewBox="0 0 24 24">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -146,6 +146,7 @@
                                 <path opacity="0.5" d="M8 14H13.5" stroke="#CCFF33" stroke-width="1.5" stroke-linecap="round"></path>
                             </g>
                         </svg>
+                    </a>
                 </div>
                 @endforeach
             </div>

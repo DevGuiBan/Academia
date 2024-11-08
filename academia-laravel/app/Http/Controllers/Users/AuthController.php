@@ -73,7 +73,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
     
-            return redirect()->route('login');
+            return redirect()->route('login')->with('success','Registro realizado com sucesso!');
         }
         catch(\Exception $e){
             return redirect()->back()->with('error','Ocorreu um erro ao registrar o usuário.');

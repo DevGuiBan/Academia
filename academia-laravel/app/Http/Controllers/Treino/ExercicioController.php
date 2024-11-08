@@ -37,11 +37,11 @@ class ExercicioController extends Controller{
         $exercicio = Exercicio::findOrFail($id);
         try{
             $exercicio->delete();
-            return redirect()->route('personal.exercicio')->with('success','Exercicio Deletado com Sucesso!');
+            return redirect()->route('personal.exercicios')->with('success','Exercicio Deletado com Sucesso!');
         }
         catch(\Exception $e){
             Log::error('Erro ao deletar exercício: '.$e->getMessage());
-            return redirect()->route('personal.exercicio')->with('error','Erro ao deletar exercício.');
+            return redirect()->route('personal.exercicios')->with('error','Erro ao deletar exercício.');
         }
     }
 
@@ -56,8 +56,8 @@ class ExercicioController extends Controller{
             ]);
 
             $exercicio->nome = $request->nome;
-            $exercicio->link_visualizacao = $request->link_visualizacao;
-            $exercicio->rep_min = $request->rep_min;
+            $exercicio->link_de_visualizacao = $request->link;
+            $exercicio->quantidade_de_repeticoes = $request->repeticoes;
             $exercicio->save();
 
             return redirect()->route('personal.exercicios',['id'=>$personal_id])->with('sucess', 'Exercício atualizado com sucesso!');

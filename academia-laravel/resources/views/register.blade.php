@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <link rel="shortcut icon" href="{{asset('images/svg/Component1.ico')}}" type="image/x-icon">
+    <title>Invictus | Academia Inteligente</title>
     <!-- Adicionar o font -->
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -27,7 +28,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     @endif
 </head>
-
+@if (session('error'))
+    <script>
+        alert('{{ session('error') }}');
+    </script>
+@endif
 <body>
     <header>
         <a class="home" href="{{route('homepage')}}">

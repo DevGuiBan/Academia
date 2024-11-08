@@ -1,8 +1,46 @@
 @extends('personal.sidebar')
 <style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .dropdown-btn {
+        width: 100%;
+        padding: 10px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background-color: #343a40;
+        text-align: left;
+        color: #fff;
+    }
+
+    .checkbox-list {
+        display: none;
+        position: absolute;
+        background-color: #343a40;
+        border: 1px solid #ccc;
+        width: 100%;
+        max-height: 150px;
+        overflow-y: auto;
+        z-index: 1;
+    }
+
+    .checkbox-list label {
+        display: block;
+        padding: 8px;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    .checkbox-list label:hover {
+        background-color: #444;
+    }
+
     .space {
         margin-left: 5%;
-        margin-top: 7%;
+        margin-top: 4%;
     }
 
     .bell {
@@ -19,13 +57,14 @@
     }
 
     .editButton:hover {
-        background-color: #86B201;
+        background-color: #343a40;
     }
 
     .tamTitle {
         font-size: x-large;
     }
 </style>
+
 @section('content')
 <div class="flex flex-col space w-full">
     <div class="flex flex-row ">
@@ -49,43 +88,48 @@
             </svg>
         </a>
     </div>
-    <h1 class="text-xl font-bold">Exercicíos</h1>
+    <h1 class="text-xl font-bold">Treino</h1>
     <br>
-    @if (isset($exercicio))
     <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action={{route('personal.updateExercicio',['id'=>$exercicio->id])}} method="POST" class="w-full mt-6">
+        <form action="{{ route('personal.selecionarExerciciosStore', ['aluno_id' => $aluno_id, 'personal_id' => $personal_id, 'treino_id' => $treino_id]) }}" method="POST" class="w-full mt-6">
             @csrf
-            @method('PUT')
-            <label for="nome" class="text-gray-500">Nome do Exercicio</label>
-            <input type="text" name="nome" id="nome" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value="{{ old('nome', $exercicio->nome) }}">
 
-            <label for="repeticoes" class="text-gray-500">Quantidade de Repetições</label>
-            <input type="text" name="repeticoes" id="repeticoes" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded"  value="{{ old('repeticoes', $exercicio->quantidade_de_repeticoes) }}">
+            <label for="exercicio" class="text-gray-400 font-medium">Inserir exercício:</label>
+            <br>
 
-            <label for="link" class="text-gray-500">Link de visualização</label>
-            <input type="text" name="link" id="link" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value="{{ old('link', $exercicio->link_de_visualizacao) }}">
+            <div class="dropdown">
+                <div class="dropdown-btn" onclick="toggleDropdown()">Selecione o Treino</div>
+                <div class="checkbox-list">
+                    @foreach ($exercicios as $exercicio)
+                    <label>
+                        <input type="checkbox" name="exercicios[]" value="{{ $exercicio->id }}">
+                        {{ $exercicio->nome }}
+                    </label>
+                    @endforeach
+                </div>
+            </div>
 
             <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
         </form>
+        <button class="flex flex-row bg-[#FF3D38] py-2 px-4 rounded text-white mt-4">
+            <a href="#" class="mt-1">Excluir Treino</a>
+        </button>
     </div>
-    @else
-    <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action={{route('personal.createExercicio')}} method="POST" class="w-full mt-6">
-            @csrf
-            <label for="nome" class="text-gray-500">Nome do Exercicio</label>
-            <input type="text" name="nome" id="nome" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite o nome do exercicio">
-
-            <label for="repeticoes" class="text-gray-500">Quantidade de Repetições</label>
-            <input type="text" name="repeticoes" id="repeticoes" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Ex: 10 x 5">
-
-            <label for="link" class="text-gray-500">Link de visualização</label>
-            <input type="text" name="link" id="link" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="https://youtube.com/asdasdjb">
-
-            <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
-        </form>
-    </div>
-
-    @endif
-
+    <br>
 </div>
+
+<script>
+    function toggleDropdown() {
+        const checkboxList = document.querySelector(".checkbox-list");
+        checkboxList.style.display = checkboxList.style.display === "block" ? "none" : "block";
+    }
+
+    document.addEventListener('click', function(event) {
+        const dropdown = document.querySelector('.dropdown');
+        const isClickInside = dropdown.contains(event.target);
+        if (!isClickInside) {
+            document.querySelector(".checkbox-list").style.display = "none";
+        }
+    });
+</script>
 @endsection

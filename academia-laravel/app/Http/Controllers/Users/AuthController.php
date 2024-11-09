@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
-
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -19,39 +20,37 @@ class AuthController extends Controller
         ]);
 
         $user = Auth::user();
-        try{
+        try {
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
                 $user = User::where('email', $request->email)->first();
-                $request->session()->put('user_id', $user->id); 
-    
+                $request->session()->put('user_id', $user->id);
+
                 if ($user->isAluno()) {
-                    return redirect()->route('aluno.treino'); 
+                    return redirect()->route('aluno.treino');
                 } else {
-                    return redirect()->route('personal.treino'); 
+                    return redirect()->route('personal.treino');
                 }
-            }else{
+            } else {
                 throw ValidationException::withMessages([
                     'email' => 'As credenciais estão incorretas'
                 ]);
             }
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Credenciais Inválidas');
         }
-        
+
     }
 
     public function logout(Request $request)
     {
-        try{
+        try {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect()->route('login');
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('error','Ocorreu um erro ao realizar o logout.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Ocorreu um erro ao realizar o logout.');
         }
     }
 
@@ -64,7 +63,7 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:6'],
             'role' => ['required', 'string', 'in:aluno,personal'],
         ]);
-        try{
+        try {
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -72,12 +71,49 @@ class AuthController extends Controller
                 'role' => $request->role,
                 'password' => Hash::make($request->password),
             ]);
-    
-            return redirect()->route('login')->with('success','Registro realizado com sucesso!');
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('error','Ocorreu um erro ao registrar o usuário.');
+
+            return redirect()->route('login')->with('success', 'Registro realizado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Ocorreu um erro ao registrar o usuário.');
         }
 
     }
+
+    public function sendResetLink(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with(['success' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->save();
+
+                $user->setRememberToken(Str::random(60));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('success', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
+    }
+
 }

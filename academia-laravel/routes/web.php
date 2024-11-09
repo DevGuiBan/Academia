@@ -23,6 +23,21 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
+Route::get('/passwordrequest', function () {
+    return view('passwordrequest');
+})->name('password.request');
+
+// Envio do link de recuperação de senha
+Route::post('/password/email', [AuthController::class, 'sendResetLink'])->name('password.email');
+
+// Formulário de redefinição de senha
+Route::get('/password/reset/{token}', function ($token) {
+    return view('passwordreset', ['token' => $token]);
+})->name('password.reset');
+
+// Submissão para redefinir senha
+Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
 Route::post('/sign-in', [AuthController::class, 'register'])->name('sign-in');
 Route::post('/authenticate', [AuthController::class, 'login'])->name('authenticate');
 

@@ -48,27 +48,22 @@
         </a>
     </header>
     <main class="flex justify-center items-center min-h-screen">
-        <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6" style="height: 80vh;">
-            <h1 class="text-white text-xl m-5 font-bold">Bem-Vindo de Volta!</h1>
-            <h1 class="text-gray-500 text-sm text-center">Entre na sua conta da Invictus ou crie uma nova.</h1>
-
-            <form action="{{ route('authenticate') }}" method="POST" class="w-full mt-6">
-                @csrf
-
-                <label for="email" class="text-gray-500">E-mail</label>
-                <input type="email" name="email" id="email" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite seu e-mail">
-
-                <label for="password" class="text-gray-500">Senha</label>
-                <input type="password" name="password" id="password" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite sua senha">
-
-                <input type="submit" value="Entrar" class="bg-[#CCFF33] py-2 px-4 rounded mt-12 w-full cursor-pointer text-[#212529]">
-            </form> 
-
-            <button class="bg-[#212529] py-2 px-4 rounded mt-4 w-full border border-[#CCFF33] cursor-pointer text-[#CCFF33]">
-                <a href="{{ route('register') }}">Criar Conta</a>
-            </button>
-            <a href="{{ route('password.request') }}" class="text-sm text-[#CCFF33] mt-4 hover:underline">Esqueceu sua senha?</a>
-        </div>
+    <div class="flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-md p-6 border border-gray-500">
+        <h2 class="text-xl font-bold text-white mb-4">Redefinir Senha</h2>
+        <form action="{{ route('password.update') }}" method="POST">
+            @csrf
+            <input type="hidden" name="token" value="{{ $token }}">
+            <label for="email" class="text-gray-500">E-mail</label>
+            <input type="email" name="email" id="email" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite seu e-mail">
+            <label for="password" class="text-gray-500">Nova Senha</label>
+            <input type="password" name="password" id="password" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded">
+            <label for="password_confirmation" class="text-gray-500">Confirme a Nova Senha</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded">
+            <input type="submit" value="Redefinir Senha" class="bg-[#CCFF33] py-2 px-4 rounded w-full cursor-pointer text-[#212529]">
+        </form>
+    </div>
+</div>
     </main>
 </body>
 

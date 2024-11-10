@@ -45,12 +45,14 @@
 </style>
 @if (session('success'))
 <script>
-    alert('{{ session('success') }}');
+    alert('{{ session('
+        success ') }}');
 </script>
 @endif
 @if (session('error'))
 <script>
-    alert('{{ session('error') }}');
+    alert('{{ session('
+        error ') }}');
 </script>
 @endif
 @section('content')
@@ -128,64 +130,19 @@
     <br>
     <br>
     <br>
-    <p class="mt-5 text-xl font-bold">Meus professores</p>
-    <div class="flex flex-row">
-        @if ($personals && count($personals) > 0)
-        <div class="relative">
-            <div id="cardsP" class="flex">
-                @foreach ($personals as $personal)
-                <div class="cardP flex flex-col bg-[#343A40] w-[15rem] rounded  ">
-                    <h1 class="text-white text-xl mt-2">{{ $personal->name }}</h1>
-                    <a style="margin-top: -2.25rem; margin-left:3rem;" href="https://wa.me/5541928647481?text=Que%20horas%20vai%20ser%20a%20aula%3F">
-                        <svg viewBox="0 0 24 24" fill="none" class="ml-[7rem]" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke="#CCFF33" stroke-width="1.5"></path>
-                                <path opacity="0.5" d="M8 10.5H16" stroke="#CCFF33" stroke-width="1.5" stroke-linecap="round"></path>
-                                <path opacity="0.5" d="M8 14H13.5" stroke="#CCFF33" stroke-width="1.5" stroke-linecap="round"></path>
-                            </g>
-                        </svg>
-                    </a>
-                </div>
-                @endforeach
-            </div>
-            <div class="flex justify-between mt-4">
-                <button onclick="previousCardP()" class="bg-[#CCFF33] p-2 rounded hover:bg-[#86B201] transition-colors duration-300 text-[#212529]">
-                    Anterior
-                </button>
-                <button onclick="nextCardP()" class="bg-[#CCFF33] p-2 rounded hover:bg-[#86B201] transition-colors duration-300 text-[#212529]">
-                    Próximo
-                </button>
-            </div>
-        </div>
-        @else
-        <h1>Nenhum Treino solicitado :(</h1>
-        @endif
+    <div>
+        <a href="{{route('student.searchPersonal')}}"
+            class="flex flex-row bg-[#212529] text-[#CCFF33] p-5 rounded text-xl border border-[#CCFF33] hover:bg-[#343a40] transition-colors duration-500  w-[17rem]">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#CCFF33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </svg>
+            <p class="mt-1 ml-2">Meus professores</p>
+        </a>
     </div>
-
-    <script>
-        let currentIndexP = 0;
-        const cardsP = document.querySelectorAll('.cardP');
-
-        function showCardP(index) {
-            cardsP.forEach((cardP, i) => {
-                cardP.classList.toggle('hidden', i !== index);
-            });
-        }
-
-        function nextCardP() {
-            currentIndexP = (currentIndexP + 1) % cardsP.length;
-            showCardP(currentIndexP);
-        }
-
-        function previousCardP() {
-            currentIndexP = (currentIndexP - 1 + cardsP.length) % cardsP.length;
-            showCardP(currentIndexP);
-        }
-
-        showCardP(currentIndexP);
-    </script>
 
 </div>
 

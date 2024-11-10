@@ -20,6 +20,16 @@ class StudentController extends Controller
             return redirect()->back()->with('error','Unable to access Student Profile');
         }
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $users = User::where('name', 'LIKE', "%{$query}%")
+        ->where('role','=','personal')->paginate(6);
+
+        return view('students.searchPersonals', ['users' => $users, 'query' => $query]);
+    }
     
     public function update(Request $request, $id){
         try{

@@ -118,11 +118,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/training/{id}', [StudentTrainingController::class,'index'])
         ->name('student.training');
 
+        Route::get('/search-personal', [StudentController::class,'search'])
+        ->name('student.searchPersonal');
+
         Route::get('/exercises/{student_id}/{training_id}', [StudentTrainingController::class,'getStudentTraining'])
         ->name('student.getExercise');
 
         Route::get('/exercise/conclude-training/{student_id}/{training_id}',[StudentTrainingController::class, 'addProgress'])
         ->name('student.concludeTraining');
+
+        Route::get('/download-pdf/{student_id}/{training_id}', [StudentTrainingController::class, 'downloadTrainingPdf'])
+        ->name('student.downloadPdf');
 
         Route::get('/profile/{id}',[StudentController::class,'profile'])
         ->name('student.profile');

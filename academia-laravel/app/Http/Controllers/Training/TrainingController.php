@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Treino;
+namespace App\Http\Controllers\Training;
 
-use App\Models\Treino;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\Training;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
-class TreinoController extends Controller{
+class TrainingController extends Controller{
     public function store(Request $request, int $id){
         try{
             $personal = User::findOrFail($id);
@@ -18,26 +18,26 @@ class TreinoController extends Controller{
                 'tipo_de_treino' =>'required|string',
             ]);
 
-            Treino::create([
+            Training::create([
                 'musculo' => $request->musculo,
                 'tipo_de_treino' => $request->tipo_de_treino,
                 'personal_id' => $personal->id,
             ]);
 
-            return redirect()->back()->with('success','Treino Criado com sucesso!');
+            return redirect()->back()->with('success','Training Created Successfully!');
         }
         catch(\Exception $e){
-            return redirect()->back()->with('error','Não foi possível criar treino: ' . $e->getMessage());
+            return redirect()->back()->with('error','Unable to create workout: ' . $e->getMessage());
         }
     }
 
     public function index(){
-        return view('personal.criarTreino');
+        return view('personal.createTraining');
     }
 
     public function update(Request $request, int $id){
         try{
-            $treino = Treino::findOrFail($id);
+            $treino = Training::findOrFail($id);
             
             $request->validate([
                 'musculo' =>'required|string',
@@ -48,28 +48,28 @@ class TreinoController extends Controller{
             $treino->tipo_de_treino = $request->tipo_de_treino;
             $treino->save();
 
-            return redirect()->route('personal.treino')->with('success', 'Treino Atualizado com sucesso!');
+            return redirect()->route('personal.training')->with('success', 'Training Updated Successfully!');
         }
         catch(\Exception $e){
-            return redirect()->route('personal.treino')->with('error', 'Não foi possível atualizar treino: ' . $e->getMessage());
+            return redirect()->route('personal.training')->with('error', 'Unable to update workout: ' . $e->getMessage());
         }
     }
 
     public function edit($id){
-        $treino = Treino::findOrFail($id);
-        return view('personal.criarTreino', compact('treino'));
+        $training = Training::findOrFail($id);
+        return view('personal.createTraining', compact('training'));
     }
 
     public function destroy($id){
-        $treino = Treino::findOrFail($id);
+        $training = Training::findOrFail($id);
 
         try{
-            $treino->delete();
-            return redirect()->route('personal.treino')->with('success', 'Treino deletado com sucesso!');
+            $training->delete();
+            return redirect()->route('personal.training')->with('success', 'Workout deleted successfully!');
         } 
         catch(\Exception $e){
             Log::error('Erro ao deletar treino: '.$e->getMessage());
-            return redirect()->route('personal.treino')->with('erro', 'Erro ao deletar execício.');
+            return redirect()->route('personal.training')->with('erro', 'Error deleting exercise.');
         }
     }
 }

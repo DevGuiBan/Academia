@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Progresso extends Model
+class Progress extends Model
 {
     protected $table = 'progresso';
 
@@ -22,6 +22,6 @@ class Progresso extends Model
     }
 
     public function treino(){
-        return $this->hasOne(Treino::class,'id');
+        return $this->hasOne(Training::class,'id');
     }
 }

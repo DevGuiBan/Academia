@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TreinoExercicio extends Model
+class TrainingExercise extends Model
 {
     protected $table = 'treino_exercicio';
     
@@ -15,11 +15,11 @@ class TreinoExercicio extends Model
 
     public function treino()
     {
-        return $this->belongsTo(Treino::class, 'treino_id');
+        return $this->belongsTo(Training::class, 'treino_id');
     }
 
     public function exercicio()
     {
-        return $this->belongsTo(Exercicio::class, 'exercicio_id');
+        return $this->belongsTo(Exercise::class, 'exercicio_id');
     }
 }

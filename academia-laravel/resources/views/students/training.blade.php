@@ -1,4 +1,4 @@
-@extends('aluno.sidebar')
+@extends('students.sidebar')
 <style>
     .space {
         margin-left: 5%;
@@ -56,7 +56,7 @@
 @section('content')
 <div class="flex flex-col space w-full">
     <div class="flex flex-row">
-        <a href={{ route('aluno.profile', session('user_id')) }} class="mt-[-5]" style="margin-left: 95%;">
+        <a href={{ route('student.profile',['id'=>session('user_id')]) }} class="mt-[-5]" style="margin-left: 95%;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#CCFF33" width="30" height="30" viewBox="0 0 24 24">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -71,16 +71,16 @@
     <div class="flex flex-row">
         <p>Treinos da Semana</p>
         <button class="flex flex-row bg-[#CCFF33] py-2 px-4 buttonAdd rounded text-[#212529]" style="margin-left: 65%;">
-            <a href="{{ route('aluno.solicitarTreino') }}" class="mt-1">Solicitar Treino</a>
+            <a href="{{ route('student.requestTraining') }}" class="mt-1">Solicitar Treino</a>
         </button>
     </div>
 
     <div class="flex flex-row">
-        @if ($treinos && count($treinos) > 0)
+        @if ($trainings && count($trainings) > 0)
         <div class="relative">
             <div id="cards" class="flex">
-                @foreach ($treinos as $treino)
-                <a href="{{ route('aluno.getExercicios', ['aluno_id' => session('user_id'), 'treino_id' => $treino->treino->id]) }}">
+                @foreach ($trainings as $treino)
+                <a href="{{ route('student.getExercise', ['student_id' => session('user_id'), 'training_id' => $treino->treino->id]) }}">
                     <div class="card bg-[#343A40] w-[15rem] p-4 rounded">
                         <h1 class="text-white">{{ $treino->treino->musculo }}</h1>
                         <p class="text-gray-400">{{ $treino->treino->tipo_de_treino }}</p>
@@ -130,10 +130,10 @@
     <br>
     <p class="mt-5 text-xl font-bold">Meus professores</p>
     <div class="flex flex-row">
-        @if ($personais && count($personais) > 0)
+        @if ($personals && count($personals) > 0)
         <div class="relative">
             <div id="cardsP" class="flex">
-                @foreach ($personais as $personal)
+                @foreach ($personals as $personal)
                 <div class="cardP flex flex-col bg-[#343A40] w-[15rem] rounded  ">
                     <h1 class="text-white text-xl mt-2">{{ $personal->name }}</h1>
                     <a style="margin-top: -2.25rem; margin-left:3rem;" href="https://wa.me/5541928647481?text=Que%20horas%20vai%20ser%20a%20aula%3F">

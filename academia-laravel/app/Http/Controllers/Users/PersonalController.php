@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Treino;
+use App\Models\Training;
 
 class PersonalController extends Controller
 {
@@ -33,10 +33,12 @@ class PersonalController extends Controller
             $user->password = $request->password;
             $user->save();
 
-            return redirect('personal/profile')->with('success', 'Seu perfil foi atualizado com sucesso!');
+            return redirect()->route('personal.profile')
+            ->with('success', 'Seu perfil foi atualizado com sucesso!');
         }
         catch(\Exception $e){
-            return redirect('personal/profile')->with('error', 'Ocorreu um erro ao atualizar seu perfil ' . $e->getMessage());
+            return redirect()->route('personal.profile')
+            ->with('error', 'There was an error updating your profile' . $e->getMessage());
         }
     }  
 
@@ -45,7 +47,7 @@ class PersonalController extends Controller
             $user = User::find($id);
 
             if (!$user) {
-                return redirect()->route('personal.profile')->with('error', 'Personal não encontrado.');
+                return redirect()->route('personal.profile')->with('error', 'Staff not found.');
             }
 
             try {
@@ -53,42 +55,43 @@ class PersonalController extends Controller
                 Auth::logout();
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                return redirect()->route('personal.profile')->with('error', 'Não foi possível excluir sua conta.');
+                return redirect()->route('personal.profile')->with('error', 'Unable to delete your account.');
             }
 
-            return redirect()->route('login')->with('success', 'Sua conta foi excluída com sucesso!');
+            return redirect()->route('login')->with('success', 'Your account has been deleted successfully!');
         }
         catch(\Exception $e){
-            return redirect()->route('personal.profile')->with('error', 'Ocorreu um erro ao excluir sua conta ' . $e->getMessage());
+            return redirect()->route('personal.profile')->with('error', 'An error occurred while deleting your account: ' . $e->getMessage());
         }
     }
 
-    public function getTreinosDoPersonal($personalId){
+    public function getTrainingOfPersonal($personalId){
         try{
             $personal = User::findOrFail($personalId);
 
-            $treinosComExercicios = Treino::where('personal_id', $personalId)
+            $trainingWithExercises = Training::where('personal_id', $personalId)
                 ->with('exercicios') 
                 ->get();
             $dados = [];
-            foreach ($treinosComExercicios as $treino) {
+            foreach ($trainingWithExercises as $training) {
                 $dados[] = [
-                    'treino' => $treino,
-                    'exercicios' => $treino->exercicios->map(function ($exercicio) {
+                    'treino' => $training,
+                    'exercicios' => $training->exercicios->map(function ($exercise) {
                         return [
-                            'id' => $exercicio->id,
-                            'nome' => $exercicio->nome,
-                            'quantidade_de_repeticoes' => $exercicio->quantidade_de_repeticoes,
-                            'link_de_visualizacao' => $exercicio->link_de_visualizacao,
+                            'id' => $exercise->id,
+                            'nome' => $exercise->nome,
+                            'quantidade_de_repeticoes' => $exercise->quantidade_de_repeticoes,
+                            'link_de_visualizacao' => $exercise->link_de_visualizacao,
                         ];
                     })->toArray(),
                 ];
             }
 
-            return view('personal.exercicio', compact('dados', 'personal'));
+            return view('personal.exercise', compact('dados', 'personal'));
         }
         catch(\Exception $e){
-            return redirect()->route('personal.exercicios')->with('error', 'Erro ao carregar treinos: ' . $e->getMessage());
+            return redirect()->route('personal.exercises',['id'=>$personalId])
+            ->with('error', 'Erro while load the trainings: ' . $e->getMessage());
         }
     }
 

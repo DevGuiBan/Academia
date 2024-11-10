@@ -1,4 +1,4 @@
-@extends('aluno.sidebar')
+@extends('students.sidebar')
 <style>
     .space {
         margin-left: 5%;
@@ -30,7 +30,7 @@
 @section('content')
 <div class="flex flex-col space w-full mr-5">
     <div class="flex flex-row ">
-        <a href={{ route('aluno.profile', session('user_id')) }} class="mt-[-5]" style="margin-left: 95%;">
+        <a href={{ route('student.profile', session('user_id')) }} class="mt-[-5]" style="margin-left: 95%;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#CCFF33" width="30" height="30" viewBox="0 0 24 24">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -66,7 +66,7 @@
     <h1>Nenhum Exercício Cadastrado :< </h1>
     @endif
     <br>
-    <a href={{route('aluno.concluirTreino',['id_aluno'=>session('user_id'),'id_treino'=>$treino_id])}} class="flex flex-row bg-[#CCFF33] py-2 px-4 buttonAdd rounded text-[#212529] w-[10rem]">
+    <a href={{route('student.concludeTraining',['student_id'=>session('user_id'),'training_id'=>$training_id])}} class="flex flex-row bg-[#CCFF33] py-2 px-4 buttonAdd rounded text-[#212529] w-[10rem]">
     Concluir Treino
     </a>
     

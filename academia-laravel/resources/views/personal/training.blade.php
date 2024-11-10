@@ -65,7 +65,7 @@
             </svg>
         </a>
 
-        @foreach ($notificacoes as $notificacao)
+        @foreach ($notifications as $notificacao)
         <div class="absolute bg-[#343A40] p-4 rounded shadow-lg" style="top: 10%; right: 5%;">
             <form method="post" action={{route('notificacao.lida',['id'=>$notificacao->id,'aluno_id' => $notificacao->id_aluno, 'personal_id' => $notificacao->id_personal, 'treino_id' => $notificacao->id_treino])}}>
                 @csrf
@@ -87,23 +87,23 @@
                     <path d="M6 12H18" stroke="#212529" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </svg>
-            <a href={{route('personal.criarTreino')}} class="mt-1">Criar Treino</a>
+            <a href={{route('personal.createTraining')}} class="mt-1">Criar Treino</a>
         </button>
     </div>
     <br>
 
     <br>
     <div class="flex flex-col">
-        @if ($solicitacoes && count($solicitacoes) > 0)
+        @if ($requests && count($requests) > 0)
         <p>Treinos cadastrados</p>
         <br>
 
         <div class="flex flex-row">
             <div class="relative">
                 <div id="cards" class="flex">
-                    @foreach ($solicitacoes as $solicitacao)
+                    @foreach ($requests as $solicitacao)
                     <div class="flex flex-col rounded card">
-                        <a href={{route('personal.salvarTreino',$solicitacao->treino->id)}}>
+                        <a href={{route('personal.saveTraining',$solicitacao->treino->id)}}>
                             <h1 class="text-white">{{ $solicitacao->treino->musculo }}</h1>
                             <br>
                             <p class="text-gray-400">{{ $solicitacao->treino->tipo_de_treino }}</p>

@@ -7,18 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
-use App\Models\Treino;
 
-class AlunoController extends Controller
+class StudentController extends Controller
 {
     public function profile(int $id){
         try{
             $user = User::findOrFail($id);
-            return view('aluno.profile', compact('user'));
+            return view('students.profile', compact('user'));
         }
         catch(\Exception $e){
             Log::error($e->getMessage());
-            return redirect()->back()->with('error','Não foi possivel acessar o Perfil do Aluno');
+            return redirect()->back()->with('error','Unable to access Student Profile');
         }
     }
     
@@ -43,11 +42,11 @@ class AlunoController extends Controller
 
             $user->save();
 
-            return view('aluno.profile', compact('user'))->with('success', 'Seu perfil foi atualizado com sucesso!');
+            return view('students.profile', compact('user'))->with('success', 'Your profile has been updated successfully!');
         }
         catch(\Exception $e){
             Log::error($e->getMessage());
-            return view('aluno.profile', compact('user'))->with('error', 'Não foi possível atualizar seu perfil.' . $e->getMessage());
+            return view('students.profile', compact('user'))->with('error', 'Unable to update your profile: ' . $e->getMessage());
         }
     }
 
@@ -55,7 +54,7 @@ class AlunoController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->route('aluno.profile')->with('error', 'Aluno não encontrado.');
+            return redirect()->route('students.profile')->with('error', 'Student not found.');
         }
 
         try {
@@ -63,10 +62,10 @@ class AlunoController extends Controller
             Auth::logout();
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('aluno.profile')->with('error', 'Não foi possível excluir sua conta.');
+            return redirect()->route('students.profile')->with('error', 'Unable to delete your account.');
         }
 
-        return redirect()->route('login')->with('success', 'Sua conta foi excluída com sucesso!');
+        return redirect()->route('login')->with('success', 'Your account has been deleted successfully!');
     }
 
 }

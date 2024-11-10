@@ -46,7 +46,7 @@
     <h1 class="text-xl font-bold">Alunos</h1>
     <br>
 
-    @if ($solicitacoes && count($solicitacoes) > 0)
+    @if ($requests && count($requests) > 0)
     <p>Alunos atendidos</p>
     <table class="w-full">
         <thead>
@@ -56,7 +56,7 @@
         </thead>
 
         <tbody class="border border-gray-500">
-            @foreach ($solicitacoes as $solicitacao)
+            @foreach ($requests as $solicitacao)
             <tr class="bg-[#212529]">
                 <td class="p-2 text-center">{{$solicitacao->alunos->name}}</td>
             </tr>

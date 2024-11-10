@@ -65,7 +65,7 @@
     </div>
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-xl font-bold">Exercicios</h1>
-        <a href="{{ route('personal.exercicio') }}" class="bg-[#CCFF33] text-[#212529] mt-5 mr-2 px-4 py-2 rounded-md hover:bg-[#b3e600] transition-colors">
+        <a href="{{ route('personal.exercise') }}" class="bg-[#CCFF33] text-[#212529] mt-5 mr-2 px-4 py-2 rounded-md hover:bg-[#b3e600] transition-colors">
             Adicionar Exercício
         </a>
     </div>
@@ -89,7 +89,7 @@
                 <td class="p-2">{{ $exercicio['nome'] }}</td>
                 <td class="p-2">{{ $exercicio['quantidade_de_repeticoes'] }}</td>
                 <td class="p-2 flex flex-row">
-                    <a href="{{ route('personal.exercicioEdit', ['id'=> $exercicio['id']]) }}" class="px-4">
+                    <a href="{{ route('personal.exerciseEdit', ['id'=> $exercicio['id']]) }}" class="px-4">
                         <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -98,7 +98,7 @@
                             </g>
                         </svg>
                     </a>
-                    <form id="deleteForm" method="POST" action="{{ route('personal.deleteExercicio', ['id' => $exercicio['id']]) }}">
+                    <form id="deleteForm" method="POST" action="{{ route('personal.deleteExercise', ['id' => $exercicio['id']]) }}">
                         @csrf
                         @method('DELETE')
                         <input type="submit" style="display: none;">

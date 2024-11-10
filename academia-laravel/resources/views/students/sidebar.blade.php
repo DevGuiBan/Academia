@@ -46,7 +46,7 @@
     <!-- Sidebar -->
     <img class="mt-[-50]" src="{{asset('images/logo_academia.png')}}" alt="logo_academia" width="250" height="250">
 
-    <a href={{url('/aluno/treino')}} class="flex flex-row mt-[-40] {{ Request::is('aluno/treino') ? 'active' : '' }}">
+    <a href={{route('student.training',['id'=>session('user_id')])}} class="flex flex-row mt-[-40] {{ Request::routeIs('student.training') ? 'active' : '' }}">
         <svg fill="currentColor" class="image" viewBox="0 0 24 24" id="Layer_1" width="20" height="20" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -56,14 +56,14 @@
         </svg>
         Treino
     </a>
-    <a href={{url('/aluno/horario')}} class="flex flex-row {{ Request::is('aluno/horario') ? 'active' : '' }}">
+    <a href={{url('/student/time')}} class="flex flex-row {{ Request::is('aluno/time') ? 'active' : '' }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="image" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
             <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
         </svg>
         Horários
     </a>
-    <a href={{route('aluno.progresso',['aluno_id'=>session('user_id')])}} class="flex flex-row {{ Request::is('aluno/progresso') ? 'active' : '' }}">
+    <a href={{route('student.progress',['student_id'=>session('user_id')])}} class="flex flex-row {{ Request::routeIs('student.progress') ? 'active' : '' }}">
         <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -73,7 +73,7 @@
         </svg>
         Progresso
     </a>
-    <a href={{route('login')}} class="flex flex-row button_exit">
+    <a href={{route('logout')}} class="flex flex-row button_exit">
         <svg xmlns="http://www.w3.org/2000/svg" class="image" width="20" height="20" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
         </svg>

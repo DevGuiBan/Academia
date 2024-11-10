@@ -1,8 +1,8 @@
-@extends('aluno.sidebar')
+@extends('students.sidebar')
 
 @section('content')
 <div class="p-20">
-    <form action={{route('aluno.update',$user->id)}} method="POST" class="w-full mt-6">
+    <form action={{route('student.update',['id'=>$user->id])}} method="POST" class="w-full mt-6">
         @csrf
         @method('PUT')
         <label for="name" class="text-gray-500">Nome</label>
@@ -19,7 +19,7 @@
 
         <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
     </form>
-    <form action={{route('aluno.delete',$user->id)}} method="POST" class="w-full mt-6">
+    <form action={{route('student.delete',['id'=>$user->id])}} method="POST" class="w-full mt-6">
         @csrf
         @method('DELETE')
 

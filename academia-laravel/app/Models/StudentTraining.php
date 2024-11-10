@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AlunoTreino extends Model
+class StudentTraining extends Model
 {
 
     protected $table = 'aluno_treino';
@@ -20,6 +20,6 @@ class AlunoTreino extends Model
 
     public function treino()
     {
-        return $this->belongsTo(Treino::class, 'treino_id');
+        return $this->belongsTo(Training::class, 'treino_id');
     }
 }

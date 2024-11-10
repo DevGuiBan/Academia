@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\AuthController;
-use App\Http\Controllers\Users\AlunoController;
+use App\Http\Controllers\Users\StudentController;
 use App\Http\Controllers\Users\PersonalController;
-use App\Http\Controllers\Treino\SolicitarTreinoController;
-use App\Http\Controllers\Treino\TreinoExercicioController;
-use App\Http\Controllers\Treino\ExercicioController;
-use App\Http\Controllers\Treino\AlunoTreinoController;
-use App\Http\Controllers\Treino\TreinoController;
-use App\Http\Controllers\Treino\NotificacaoController;
+use App\Http\Controllers\Training\RequestTrainingController;
+use App\Http\Controllers\Training\TrainingExerciseController;
+use App\Http\Controllers\Training\ExerciseController;
+use App\Http\Controllers\Training\StudentTrainingController;
+use App\Http\Controllers\Training\TrainingController;
+use App\Http\Controllers\Training\NotificationController;
 
 Route::get('/', function () {
     return view('landing.landingpage');
@@ -43,63 +43,66 @@ Route::post('/authenticate', [AuthController::class, 'login'])->name('authentica
 
 Route::middleware(['auth'])->group(function () {
     
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::prefix('personal')->group(function () {
-        Route::get('/alunos/{id_personal}',[SolicitarTreinoController::class,'indexAlunos'])
-        ->name('personal.alunos');
+        Route::get('/students/{id_personal}',[RequestTrainingController::class,'indexStudents'])
+        ->name('personal.students');
         
-        Route::get('/horario', function () {
-            return view('personal.horario');
+        Route::get('/time', function () {
+            return view('personal.time');
         });
         
-        Route::get('/{id}/exercicio', [PersonalController::class, 'getTreinosDoPersonal'])
-        ->name('personal.exercicios');
+        Route::get('/{id}/exercise', [PersonalController::class, 'getTrainingOfPersonal'])
+        ->name('personal.exercises');
 
-        Route::post('/salvar-exercicio', [ExercicioController::class, 'store'])
-        ->name('personal.createExercicio');
+        Route::post('/save-exercise', [ExerciseController::class, 'store'])
+        ->name('personal.createExercise');
         
-        Route::post('/salvar-exercicio/{treino_id}/{exercicio_id}', [TreinoExercicioController::class, 'salvarExercicio'])
-        ->name('personal.salvarExercicio');
+        Route::post('/save-exercise/{training_id}/{exercicio_id}', [TrainingExerciseController::class, 'salvarExercicio'])
+        ->name('personal.saveExercise');
 
-        Route::put('/salvar-exercicio/{personal_id}/{id}',[ExercicioController::class, 'update'])
-        ->name('personal.updateExercicio');
+        Route::put('/save-exercise/{personal_id}/{id}',[ExerciseController::class, 'update'])
+        ->name('personal.updateExercise');
 
-        Route::delete('/delete-exercicio/{id}',[ExercicioController::class,'destroy'])
-        ->name('personal.deleteExercicio');
+        Route::delete('/delete-exercise/{id}',[ExerciseController::class,'destroy'])
+        ->name('personal.deleteExercise');
         
-        Route::get('/salvar-exercicio',[ExercicioController::class, 'index'])
-        ->name('personal.exercicio');
+        Route::get('/save-exercise',[ExerciseController::class, 'index'])
+        ->name('personal.exercise');
 
-        Route::get('/salvar-exercicio/edit/{id}',[ExercicioController::class, 'edit'])
-        ->name('personal.exercicioEdit');
+        Route::get('/save-exercise/edit/{id}',[ExerciseController::class, 'edit'])
+        ->name('personal.exerciseEdit');
 
-        Route::post('/selecionar-exercicios/{aluno_id}/{personal_id}/{treino_id}', [TreinoExercicioController::class, 'store'])
-        ->name('personal.selecionarExerciciosStore');
+        Route::post('/select-exercises/{student_id}/{personal_id}/{training_id}', [TrainingExerciseController::class, 'store'])
+        ->name('personal.selectExercisesStore');
 
-        Route::get('/salvar-treino/edit/{treino_id}', [TreinoController::class, 'edit'])
-        ->name('personal.salvarTreino');
+        Route::get('/save-training/edit/{training_id}', [TrainingController::class, 'edit'])
+        ->name('personal.saveTraining');
 
-        Route::get('/treino/create',[TreinoController::class,'index'])
-        ->name('personal.criarTreino');
+        Route::get('/training/create',[TrainingController::class,'index'])
+        ->name('personal.createTraining');
 
-        Route::put('/salvar-treino/{treino_id}',[TreinoController::class,'update'])
-        ->name('personal.updateTreino');
+        Route::put('/save-training/{training_id}',[TrainingController::class,'update'])
+        ->name('personal.updateTraining');
 
-        Route::get('/selecionar-exercicios/{aluno_id}/{personal_id}/{treino_id}', [TreinoExercicioController::class, 'selecionarExercicios'])
-        ->name('personal.selecionarExercicios');
+        Route::delete('/delete/training/{id}',[TrainingController::class,'destroy'])
+        ->name('personal.deleteTraining');
 
-        Route::post('/treino/create/{id}',[TreinoController::class,'store'])
+        Route::get('/select-exercises/{student_id}/{personal_id}/{training_id}', [TrainingExerciseController::class, 'selectExercise'])
+        ->name('personal.selectExercises');
+
+        Route::post('/training/create/{id}',[TrainingController::class,'store'])
         ->name('personal.create');
 
-        Route::put('/treino/edit/{id}', [AlunoTreinoController::class, 'edit']
-        )->name('personal.editTreino');
+        Route::put('/training/edit/{id}', [StudentTrainingController::class, 'edit']
+        )->name('personal.editTraining');
         
-        Route::get('/treino', [SolicitarTreinoController::class, 'index']
-        )->name('personal.treino');
+        Route::get('/training', [RequestTrainingController::class, 'index']
+        )->name('personal.training');
 
-        Route::post('/notificacao/{id}/lida/{aluno_id}/{personal_id}/{treino_id}', [NotificacaoController::class, 'marcarComoLida'])
-        ->name('notificacao.lida');
+        Route::post('/notification/{id}/read/{student_id}/{personal_id}/{training_id}', [NotificationController::class, 'markAsRead'])
+        ->name('notification.read');
 
         Route::get('/profile/{id}',[PersonalController::class,'profile'])
         ->name('personal.profile');
@@ -111,36 +114,36 @@ Route::middleware(['auth'])->group(function () {
         ->name('personal.update');
     });
 
-    Route::prefix('aluno')->group(function () {
-        Route::get('/treino', [AlunoTreinoController::class,'index'])
-        ->name('aluno.treino');
+    Route::prefix('student')->group(function () {
+        Route::get('/training/{id}', [StudentTrainingController::class,'index'])
+        ->name('student.training');
 
-        Route::get('/exercicios/{aluno_id}/{treino_id}', [AlunoTreinoController::class,'getAlunoTreino'])
-        ->name('aluno.getExercicios');
+        Route::get('/exercises/{student_id}/{training_id}', [StudentTrainingController::class,'getStudentTraining'])
+        ->name('student.getExercise');
 
-        Route::get('/exercicio/concluir-treino/{id_aluno}/{id_treino}',[AlunoTreinoController::class, 'addProgresso'])
-        ->name('aluno.concluirTreino');
+        Route::get('/exercise/conclude-training/{student_id}/{training_id}',[StudentTrainingController::class, 'addProgress'])
+        ->name('student.concludeTraining');
 
-        Route::get('/profile/{id}',[AlunoController::class,'profile'])
-        ->name('aluno.profile');
+        Route::get('/profile/{id}',[StudentController::class,'profile'])
+        ->name('student.profile');
 
-        Route::put('/profile/{id}',[AlunoController::class,'update'])
-        ->name('aluno.update');
+        Route::put('/profile/{id}',[StudentController::class,'update'])
+        ->name('student.update');
 
-        Route::delete('/profile/{id}',[AlunoController::class,'destroy'])
-        ->name('aluno.delete');
+        Route::delete('/profile/{id}',[StudentController::class,'destroy'])
+        ->name('student.delete');
         
-        Route::get('/solicitar-treino', [SolicitarTreinoController::class, 'indexCreateSolicities'])
-        ->name('aluno.solicitarTreino');
+        Route::get('/request-training', [RequestTrainingController::class, 'indexCreateRequests'])
+        ->name('student.requestTraining');
 
-        Route::post('/solicitar-treino/{id}',[SolicitarTreinoController::class,'store'])
-        ->name('solicitar-treino');
+        Route::post('/request-training/{id}',[RequestTrainingController::class,'store'])
+        ->name('student.request-training');
         
-        Route::get('/progresso/{aluno_id}', [AlunoTreinoController::class,'getProgresso'])
-        ->name('aluno.progresso');
+        Route::get('/progress/{student_id}', [StudentTrainingController::class,'getProgress'])
+        ->name('student.progress');
         
-        Route::get('/horario', function () {
-            return view('aluno.horario');
+        Route::get('/time', function () {
+            return view('students.time');
         });
     });
 });

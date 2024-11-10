@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Treino extends Model
+class Training extends Model
 {
     protected $table = 'treino';
 
@@ -18,7 +18,7 @@ class Treino extends Model
 
     public function exercicios()
     {
-        return $this->belongsToMany(Exercicio::class, 'treino_exercicio', 'treino_id', 'exercicio_id');
+        return $this->belongsToMany(Exercise::class, 'treino_exercicio', 'treino_id', 'exercicio_id');
     }
 
     public function personal()
@@ -28,7 +28,7 @@ class Treino extends Model
 
     public function progresso()
     {
-        return $this->hasMany(Progresso::class, 'id');
+        return $this->hasMany(Progress::class, 'id');
     }
 
     public function alunos()

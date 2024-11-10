@@ -27,17 +27,17 @@ class AuthController extends Controller
                 $request->session()->put('user_id', $user->id);
 
                 if ($user->isAluno()) {
-                    return redirect()->route('aluno.treino');
+                    return redirect()->route('student.training',['id'=>$user->id]);
                 } else {
-                    return redirect()->route('personal.treino');
+                    return redirect()->route('personal.training');
                 }
             } else {
                 throw ValidationException::withMessages([
-                    'email' => 'As credenciais estão incorretas'
+                    'email' => 'Credentials are incorrect'
                 ]);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Credenciais Inválidas');
+            return redirect()->back()->with('error', 'Invalid Credentials');
         }
 
     }
@@ -50,7 +50,7 @@ class AuthController extends Controller
             $request->session()->regenerateToken();
             return redirect()->route('login');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Ocorreu um erro ao realizar o logout.');
+            return redirect()->back()->with('error', 'An error occurred while logging out.');
         }
     }
 
@@ -72,9 +72,9 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            return redirect()->route('login')->with('success', 'Registro realizado com sucesso!');
+            return redirect()->route('login')->with('success', 'Registration completed successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Ocorreu um erro ao registrar o usuário.');
+            return redirect()->back()->with('error', 'An error occurred while registering the user.');
         }
 
     }

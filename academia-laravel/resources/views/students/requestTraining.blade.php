@@ -1,4 +1,4 @@
-@extends('aluno.sidebar')
+@extends('students.sidebar')
 <style>
     .space {
         margin-left: 5%;
@@ -39,7 +39,7 @@
                 </g>
             </svg>
         </a>
-        <a href={{ route('aluno.profile', session('user_id')) }} class="ml-10 mt-[-5]">
+        <a href={{ route('student.profile', ['id'=>session('user_id')]) }} class="ml-10 mt-[-5]">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#CCFF33" width="30" height="30" viewBox="0 0 24 24">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -52,7 +52,7 @@
     <h1 class="text-xl font-bold">Solicitar treino</h1>
     <br>
     <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action={{route('solicitar-treino',session('user_id'))}} method="POST" class="w-full mt-6">
+        <form action={{route('student.request-training',['id'=>session('user_id')])}} method="POST" class="w-full mt-6">
             @csrf
             <label for="users">Personal</label>
             <select name="users" id="users" class="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600">
@@ -68,8 +68,8 @@
             <br>
             <label for="musculo">Grupo Muscular</label>
             <select name="musculo" id="musculo" class="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600">
-                @if ($treinos)
-                    @foreach ($treinos as $treino)
+                @if ($trainings)
+                    @foreach ($trainings as $treino)
                         <option value={{$treino->id}}>{{$treino->musculo}} - {{$treino->tipo_de_treino}}</option>
                     @endforeach
                 @else
@@ -80,7 +80,7 @@
             <input type="submit" value="Solicitar Treino" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
         </form>
         <button class="flex flex-row bg-[#FF3D38] py-2 px-4 rounded text-white w-full">
-            <a href={{route('aluno.treino')}} class="mt-1 w-full">Cancelar Solicitação</a>
+            <a href={{route('student.training',['id'=>session('user_id')])}} class="mt-1 w-full">Cancelar Solicitação</a>
         </button>
     </div>
     <br>

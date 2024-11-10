@@ -2,7 +2,7 @@
 <style>
     .space {
         margin-left: 5%;
-        margin-top: 4%;
+        margin-top: 7%;
     }
 
     .bell {
@@ -19,7 +19,7 @@
     }
 
     .editButton:hover {
-        background-color: #343a40;
+        background-color: #86B201;
     }
 
     .tamTitle {
@@ -27,17 +27,6 @@
     }
 </style>
 @section('content')
-@if (session('success'))
-    <script>
-        alert('{{ session('success') }}');
-    </script>
-@endif
-
-@if (session('error'))
-    <script>
-        alert('{{ session('error') }}');
-    </script>
-@endif
 <div class="flex flex-col space w-full">
     <div class="flex flex-row ">
         <a href="#" style="margin-left: 90%;">
@@ -60,36 +49,42 @@
             </svg>
         </a>
     </div>
-    <h1 class="text-xl font-bold">Treino</h1>
+    <h1 class="text-xl font-bold">Exercicíos</h1>
     <br>
-    @if (isset($treino))
+    @if (isset($exercise))
     <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action={{route('personal.updateTreino',['treino_id'=>$treino->id])}} method="POST" class="w-full mt-6">
+        <form action={{route('personal.updateExercise',['id'=>$exercise->id,'personal_id'=>session('user_id')])}} method="post" class="w-full mt-6">
             @csrf
             @method('PUT')
-            <label for="musculo" class="text-gray-500">Grupo Trabalhado</label>
-            <input type="text" name="musculo" id="musculo" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value={{$treino->musculo}}>
+            <label for="nome" class="text-gray-500">Nome do Exercicio</label>
+            <input type="text" name="nome" id="nome" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value="{{ old('nome', $exercise->nome) }}">
 
-            <label for="tipo_treino" class="text-gray-500">Tipo de Treino</label>
-            <input type="text" name="tipo_de_treino" id="tipo_treino" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value={{$treino->tipo_de_treino}}>
+            <label for="repeticoes" class="text-gray-500">Quantidade de Repetições</label>
+            <input type="text" name="repeticoes" id="repeticoes" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded"  value="{{ old('repeticoes', $exercise->quantidade_de_repeticoes) }}">
+
+            <label for="link" class="text-gray-500">Link de visualização</label>
+            <input type="text" name="link" id="link" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value="{{ old('link', $exercise->link_de_visualizacao) }}">
 
             <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
         </form>
     </div>
-
     @else
     <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action={{route('personal.create',session('user_id'))}} method="POST" class="w-full mt-6">
+        <form action={{route('personal.createExercise')}} method="post" class="w-full mt-6">
             @csrf
-            <label for="musculo" class="text-gray-500">Grupo Trabalhado</label>
-            <input type="text" name="musculo" id="musculo" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Costa">
+            <label for="nome" class="text-gray-500">Nome do Exercicio</label>
+            <input type="text" name="nome" id="nome" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Digite o nome do exercicio">
 
-            <label for="tipo_treino" class="text-gray-500">Tipo de Treino</label>
-            <input type="text" name="tipo_de_treino" id="tipo_treino" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Força">
+            <label for="repeticoes" class="text-gray-500">Quantidade de Repetições</label>
+            <input type="text" name="repeticoes" id="repeticoes" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="Ex: 10 x 5">
+
+            <label for="link" class="text-gray-500">Link de visualização</label>
+            <input type="text" name="link" id="link" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" placeholder="https://youtube.com/asdasdjb">
 
             <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
         </form>
     </div>
+
     @endif
 
 </div>

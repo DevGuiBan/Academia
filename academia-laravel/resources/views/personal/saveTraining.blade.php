@@ -91,7 +91,7 @@
     <h1 class="text-xl font-bold">Treino</h1>
     <br>
     <div class="flex flex-col items-center w-full max-w-md border border-gray-500 p-6">
-        <form action="{{ route('personal.selecionarExerciciosStore', ['aluno_id' => $aluno_id, 'personal_id' => $personal_id, 'treino_id' => $treino_id]) }}" method="POST" class="w-full mt-6">
+        <form action="{{ route('personal.selectExercisesStore', ['student_id' => $student_id, 'personal_id' => $personal_id, 'training_id' => $training_id]) }}" method="POST" class="w-full mt-6">
             @csrf
 
             <label for="exercicio" class="text-gray-400 font-medium">Inserir exercício:</label>
@@ -100,9 +100,9 @@
             <div class="dropdown">
                 <div class="dropdown-btn" onclick="toggleDropdown()">Selecione o Treino</div>
                 <div class="checkbox-list">
-                    @foreach ($exercicios as $exercicio)
+                    @foreach ($exercises as $exercicio)
                     <label>
-                        <input type="checkbox" name="exercicios[]" value="{{ $exercicio->id }}">
+                        <input type="checkbox" name="exercises[]" value="{{ $exercicio->id }}">
                         {{ $exercicio->nome }}
                     </label>
                     @endforeach
@@ -111,9 +111,6 @@
 
             <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
         </form>
-        <button class="flex flex-row bg-[#FF3D38] py-2 px-4 rounded text-white mt-4">
-            <a href="#" class="mt-1">Excluir Treino</a>
-        </button>
     </div>
     <br>
 </div>

@@ -22,6 +22,6 @@ class Progress extends Model
     }
 
     public function treino(){
-        return $this->hasOne(Training::class,'id');
+        return $this->hasOne(Training::class,'id','treino_id');
     }
 }

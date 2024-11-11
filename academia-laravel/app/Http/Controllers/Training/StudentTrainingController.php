@@ -103,7 +103,8 @@ class StudentTrainingController extends Controller
 
                 foreach ($trainingWithExercise as $training) {
                     foreach ($training->exercicios as $exercise) {
-                        $exerciciosArray[] = [
+                        $exercicioKey = $exercise->nome . $exercise->quantidade_de_repeticoes;
+                        $exerciciosArray[$exercicioKey] = [
                             'nome' => $exercise->nome,
                             'quantidade_de_repeticoes' => $exercise->quantidade_de_repeticoes,
                         ];
@@ -151,7 +152,6 @@ class StudentTrainingController extends Controller
 
             // Retornar o PDF para download
             return $pdf->download($filename);
-
         } catch (\Exception $e) {
             Log::error('Erro ao gerar PDF do treino: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Erro ao gerar PDF do treino! ' . $e->getMessage());

@@ -68,10 +68,10 @@
             @csrf
             @method('PUT')
             <label for="musculo" class="text-gray-500">Grupo Trabalhado</label>
-            <input type="text" name="musculo" id="musculo" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value={{$treino->musculo}}>
+            <input type="text" name="musculo" id="musculo" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value={{$training->musculo}}>
 
             <label for="tipo_treino" class="text-gray-500">Tipo de Treino</label>
-            <input type="text" name="tipo_de_treino" id="tipo_treino" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value={{$treino->tipo_de_treino}}>
+            <input type="text" name="tipo_de_treino" id="tipo_treino" required class="w-full p-2 mt-1 mb-4 bg-gray-800 text-white border border-gray-600 rounded" value={{$training->tipo_de_treino}}>
 
             <input type="submit" value="Salvar" class="bg-[#CCFF33] py-2 px-4 rounded mt-5 w-full cursor-pointer text-[#212529]">
         </form>

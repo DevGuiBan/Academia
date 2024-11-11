@@ -28,7 +28,7 @@ class Training extends Model
 
     public function progresso()
     {
-        return $this->hasMany(Progress::class, 'id');
+        return $this->hasMany(Progress::class, 'treino_id');
     }
 
     public function alunos()

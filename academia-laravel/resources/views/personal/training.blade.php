@@ -67,7 +67,7 @@
 
         @foreach ($notifications as $notificacao)
         <div class="absolute bg-[#343A40] p-4 rounded shadow-lg" style="top: 10%; right: 5%;">
-            <form method="post" action={{route('notificacao.lida',['id'=>$notificacao->id,'aluno_id' => $notificacao->id_aluno, 'personal_id' => $notificacao->id_personal, 'treino_id' => $notificacao->id_treino])}}>
+            <form method="post" action={{route('notification.read',['id'=>$notificacao->id,'student_id' => $notificacao->id_aluno, 'personal_id' => $notificacao->id_personal, 'training_id' => $notificacao->id_treino])}}>
                 @csrf
                 <p>{{ $notificacao->mensagem }}</p>
                 <input type="submit" value="Visualizar solicitação" class="text-[#CCFF33] underline cursor-pointer">

@@ -94,7 +94,7 @@
         <form action="{{ route('personal.selectExercisesStore', ['student_id' => $student_id, 'personal_id' => $personal_id, 'training_id' => $training_id]) }}" method="POST" class="w-full mt-6">
             @csrf
 
-            <label for="exercicio" class="text-gray-400 font-medium">Inserir exercício:</label>
+            <label for="exercises" class="text-gray-400 font-medium">Inserir exercício:</label>
             <br>
 
             <div class="dropdown">

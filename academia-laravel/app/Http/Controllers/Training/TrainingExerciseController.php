@@ -13,7 +13,7 @@ class TrainingExerciseController extends Controller{
     public function store(Request $request, $student_id,$personal_id, $training_id){
         try{
             $request->validate([
-                'exercicios' => 'required|array|min:1',
+                'exercises' => 'required|array|min:1',
             ]);
 
             foreach ($request->input('exercises') as $exercises_id) {

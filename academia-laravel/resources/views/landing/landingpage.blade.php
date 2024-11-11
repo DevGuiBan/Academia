@@ -315,7 +315,7 @@
     
             <p>André Casimiro da Silva (Front-end)</p>
             <p>Nickolas Davi Vieira Lima (Front-end)</p>
-            <p>Guilherme Bandeira Dias (Banco de dados)</p>
+            <p>Guilherme Bandeira Dias (Banco de dados e Back-end)</p>
             <p>Francisca Geovanna de Lima da Silva (Back-end)</p>
             <p>Raimundo Gabriel Pereira Ferreira (Back-end)</p>
         </footer>
